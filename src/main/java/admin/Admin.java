@@ -11,6 +11,11 @@ import java.util.Scanner;
  *
  * @author user
  */
+/*
+    사용자 정보를 어디에 저장할것인가.
+    사용자 정보를 저장하면 그것을 읽어와서 보여주기
+
+    */
 public interface Admin {
     
     // 사용자 정보 보기
