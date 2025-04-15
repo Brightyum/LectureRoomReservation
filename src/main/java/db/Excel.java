@@ -10,6 +10,9 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  *
  * @author user
@@ -21,6 +24,8 @@ public class Excel {
     private int userSheet;
     private int defaultExcelRowIndex;
     private int defaultExcelColumnIndex;
+    private List<String> userList;
+    private int userLen;
     
     public Excel() throws IOException {
         this.excelPath = "src/main/java/db/LectureRoomReservation.xlsx";
@@ -28,7 +33,9 @@ public class Excel {
         this.defaultExcelRowIndex = 0;
         this.defaultExcelColumnIndex = 0;
         this.file = new FileInputStream(this.excelPath);
-        workbook = new XSSFWorkbook(this.file);
+        this.workbook = new XSSFWorkbook(this.file);
+        this.userList = new ArrayList<>();
+        this.userLen = 5;
     }
     
     public FileInputStream getFile()  throws IOException {
@@ -52,28 +59,35 @@ public class Excel {
                 
                 switch (cell.getCellType()) {
                     case STRING:
-                        System.out.print(cell.getStringCellValue() + "\t");
+                        System.out.print("문자열" + cell.getStringCellValue() + "\t");
+                        this.userList.add(cell.getStringCellValue());
                         break;
                     case NUMERIC:
-                        System.out.print(cell.getNumericCellValue() + "\t");
-                        break;
-                    case BOOLEAN:
-                        System.out.print(cell.getBooleanCellValue() + "\t");
-                        break;
-                    case FORMULA:
-                        // 수식 자체를 출력할 수 있으며, 필요시 evaluate하여 결과를 출력할 수도 있습니다.
-                        System.out.print(cell.getCellFormula() + "\t");
+                        System.out.print("숫자" + cell.getNumericCellValue() + "\t");
+                        String value = Integer.toString((int) cell.getNumericCellValue());
+                        this.userList.add(value);
                         break;
                     case BLANK:
                         System.out.print(" " + "\t");
                         break;
                     default:
-                        System.out.print(" " + "\t");
+                        System.out.print("없는값 " + "\t");
                         break;
                 }    
             }
             System.out.println();
         }
+    }
+    public List<List<String>> getUserInfo() {
+        List<List<String>> result = new ArrayList<>();
+        
+        for (int i = 0; i < this.userList.size(); i += this.userLen) {
+            int end = Math.min(i + userLen, userList.size());
+            List<String> temp = new ArrayList<>(userList.subList(i, end));
+            
+            result.add(temp);
+        }
+        return result;
     }
     public static void main(String args[]) throws IOException {
         Excel e = new Excel();

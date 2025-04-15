@@ -5,18 +5,27 @@
 package admin;
 import db.Excel;
 import java.io.IOException;
+import java.util.List;
+//import java.util.ArrayList;
 /**
  *
  * @author user
  */
 public class UserManagement implements Admin {
+    
     private Excel excel;
+   
+    private List<List<String>> userList; 
     public UserManagement() throws IOException{
         this.excel = new Excel();
     }
+    
     @Override
     public void getUserInformation() {
         this.excel.readUser();
+        userList = this.excel.getUserInfo();
+        
+        System.out.print(userList);
     }
 
     @Override
