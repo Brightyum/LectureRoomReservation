@@ -59,11 +59,11 @@ public class Excel {
                 
                 switch (cell.getCellType()) {
                     case STRING:
-                        System.out.print("문자열" + cell.getStringCellValue() + "\t");
+                        //System.out.print("문자열" + cell.getStringCellValue() + "\t");
                         this.userList.add(cell.getStringCellValue());
                         break;
                     case NUMERIC:
-                        System.out.print("숫자" + cell.getNumericCellValue() + "\t");
+                        //System.out.print("숫자" + cell.getNumericCellValue() + "\t");
                         String value = Integer.toString((int) cell.getNumericCellValue());
                         this.userList.add(value);
                         break;
