@@ -5,6 +5,7 @@
 package db;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -36,14 +37,6 @@ public class Excel {
         this.workbook = new XSSFWorkbook(this.file);
         this.userList = new ArrayList<>();
         this.userLen = 5;
-    }
-    
-    public FileInputStream getFile()  throws IOException {
-        return this.file;
-    }
-    
-    public XSSFWorkbook getWorkbook() {
-        return this.workbook;
     }
     
     public void readUser() {
@@ -78,6 +71,7 @@ public class Excel {
             System.out.println();
         }
     }
+    
     public List<List<String>> getUserInfo() {
         List<List<String>> result = new ArrayList<>();
         
@@ -88,6 +82,32 @@ public class Excel {
             result.add(temp);
         }
         return result;
+    }
+    
+    public void saveUserInfo(List<List<String>> userInfo) {
+        try {
+            XSSFSheet sheet = this.workbook.getSheetAt(this.userSheet);
+            
+            for (int i = 0; i < userInfo.size(); i++) {
+                XSSFRow row = sheet.createRow(i);
+                List<String> user = userInfo.get(i);
+                
+                for (int j = 0; j < user.size(); j++) {
+                    XSSFCell cell = row.createCell(j);
+                    cell.setCellValue(user.get(j));
+                }
+            }
+            
+            try (FileOutputStream fileout = new FileOutputStream(this.excelPath)) {
+                this.workbook.write(fileout);
+            } catch (SecurityException se) {
+                System.out.println("파일 접근 권한이 없습니다." + se);
+            }
+            System.out.println("사용자 정보 저장 완료");
+            
+        } catch (IOException ioe) {
+            System.out.println("엑셀 파일 저장 중 입출력 오류가 발생했습니다." + ioe);
+        }
     }
     public static void main(String args[]) throws IOException {
         Excel e = new Excel();
