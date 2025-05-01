@@ -10,6 +10,7 @@ package professor;
  */
 public interface Professor {
     // 강의실 예약은 사용자와 동일하게 진행
+    void reservationClassRoom();
     
     // 문의사항 전체 확인(학사조교 - 사용자)
     void getContactAll();
