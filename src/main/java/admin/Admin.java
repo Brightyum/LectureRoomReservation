@@ -19,20 +19,20 @@ import java.util.*;
 public interface Admin {
     
     // 사용자 정보 보기
-    void getUserInformation();
+    //void getUserInformation();
     
     // 사용자 정보 수정
-    void setUserInformation();
+    public void setUserInformation();
     
     // 사용자 문의사항 보기
-    void getUserContact();
+    public void getUserContact();
     
     // 다른 학과 사용자의 강의실 예약 확인
-    void checkAnother();
+    public void checkAnother();
     
     // 사용자 목록 확인
-    List<String> getUsers();
+    public List<String> getUsers();
     
     // 사용자 경고
-    void setUserWarning();
+    public void setUserWarning();
 }
