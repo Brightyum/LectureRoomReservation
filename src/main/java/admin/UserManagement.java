@@ -63,7 +63,15 @@ public class UserManagement implements Admin {
 
     @Override
     public void getUserContact() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       int problemIdx = 5;
+       int problemCheckIdx = 6;
+       String check = "0";
+       
+       for (List<String> user : this.userInfo) {
+           if (check.equals(user.get(problemCheckIdx))) {
+               System.out.println(user.get(problemIdx));
+           }
+       }
     }
 
     @Override
@@ -125,6 +133,7 @@ public class UserManagement implements Admin {
         UserManagement admin = new UserManagement();
         //admin.getUserInformation();
        // admin.getUsers();
-        admin.setUserWarning();
+        //admin.setUserWarning();
+        admin.getUserContact();
     }
 }
