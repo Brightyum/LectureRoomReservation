@@ -14,6 +14,8 @@ import java.util.*;
  *
  * @author user
  */
+
+
 public class UserManagement implements Admin {
     
     private Excel excel;
@@ -50,7 +52,8 @@ public class UserManagement implements Admin {
             return null;
         }
     }
-    private void getUserInformation() {
+    
+    public void getUserInformation() {
         this.excel.readUser();
         userInfo = this.excel.getUserInfo();
         
@@ -175,5 +178,10 @@ public class UserManagement implements Admin {
        // admin.getUsers();
         //admin.setUserWarning();
         admin.getUserContact();
+    }
+
+    @Override
+    public void setUserInformation() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
