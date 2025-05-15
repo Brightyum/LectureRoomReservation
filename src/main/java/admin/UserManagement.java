@@ -21,6 +21,10 @@ public class UserManagement implements Admin {
     private int userNameIdx;
     private Scanner sc;
     private int userNoticeIdx;
+    private int userIdIdx;
+    private int userPwdIdx;
+    private int userMajorIdx;
+    
     
     public UserManagement() {
         this(createDefaultExcel(), new Scanner(System.in));
@@ -32,6 +36,10 @@ public class UserManagement implements Admin {
         this.userNoticeIdx = 4;
         this.sc = sc;
         this.getUserInformation();
+        this.userIdIdx = 1;
+        this.userPwdIdx = 2;
+        this.userMajorIdx = 3;
+        
     }
     
     private static Excel createDefaultExcel() {
@@ -48,17 +56,22 @@ public class UserManagement implements Admin {
         
         System.out.println(userInfo);
     }
-
-    @Override
-    public void setUserInformation() {
-        System.out.print("수정을 원하는 사용자 이름을 입력하세요: ");
-        String userName = this.sc.nextLine();
-        
+    
+    //@Override
+    public void setUserInformation(List<String> list, String id) {
         for (List<String> user : this.userInfo) {
-             if (userName.equals(user.get(userNameIdx))) {
-                 
-             }
+             if (id.equals(user.get(this.userIdIdx))) {
+                 int listNameIdx = 0;
+                 int listPwdIdx = 1;
+                 int listMajorIdx = 2;
+                 user.set(this.userNameIdx, list.get(listNameIdx));
+                 user.set(this.userPwdIdx, list.get(listPwdIdx));
+                 user.set(this.userMajorIdx, list.get(listMajorIdx));
+                 System.out.println(user);
+            }
         }
+        //저장 하는 코드를 구성
+        excel.saveUserInfo(this.userInfo);
     }
 
     @Override
@@ -81,16 +94,33 @@ public class UserManagement implements Admin {
 
     @Override
     public List<String> getUsers() {
-        List<String> userList = new ArrayList<>();
+        List<String> userNameList = new ArrayList<>();
         
        for (List<String> user : this.userInfo ) {
-           String userName = user.get(userNameIdx);
            
-           System.out.println("사용자 이름" + userName);
-          userList.add(userName);
+           String userName = user.get(this.userNameIdx);
+           String userId = user.get(this.userIdIdx);
+           
+           System.out.println("사용자 이름" + userName + "사용자 ID: " + userId);
+           userNameList.add(userName);
        }
        
-       return userList;
+       return userNameList;
+    }
+    
+    public List<String> getId() {
+        
+        List<String> userIdList = new ArrayList<>();
+        
+        for (List<String> user : this.userInfo ) {
+            
+            String userId = user.get(this.userIdIdx);
+
+            System.out.println("사용자 ID: " + userId);
+            userIdList.add(userId);
+        }
+        
+        return userIdList;    
     }
 
     @Override
@@ -128,6 +158,16 @@ public class UserManagement implements Admin {
             }
             break;
         }
+    }
+    
+    public List<String> getUserDetail(String userId) {
+        
+        for (List<String> userList : this.userInfo ) {
+           if (userId.equals(userList.get(userIdIdx))) {
+               return userList;
+           } 
+       }
+       return null;
     }
     public static void main(String args[]) throws IOException {
         UserManagement admin = new UserManagement();

@@ -6,6 +6,7 @@ package Server;
 
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -13,6 +14,8 @@ import java.net.*;
  */
 public class ClientHandler implements Runnable{
     private Socket clientSocket;
+    private static final int MAX_USER = 3;
+    private static final AtomicInteger userCount = new AtomicInteger(0);
     
     public ClientHandler(Socket socket) {
         this.clientSocket = socket;
@@ -20,6 +23,20 @@ public class ClientHandler implements Runnable{
     
     @Override
     public void run() {
+        if (this.userCount.get() >= this.MAX_USER) {
+            try {
+                PrintWriter out = new PrintWriter(this.clientSocket.getOutputStream(), true);
+                out.println("서버에 이용자가 가득 찼습니다. 나중에 다시 시도하세요");
+                this.clientSocket.close();
+            } catch (IOException e) {
+                System.out.println("연결중 오류 발생: " + e.getMessage());
+            }
+            return;
+        }
+        
+        this.userCount.incrementAndGet();
+        System.out.println("현재 접속자 수: " + this.userCount.get());
+        
         try (
             BufferedReader in = new BufferedReader(
                 new InputStreamReader(this.clientSocket.getInputStream()));

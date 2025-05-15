@@ -85,28 +85,45 @@ public class Excel {
     }
     
     public void saveUserInfo(List<List<String>> userInfo) {
+        System.out.println("저장을 시작하겠습니다.");
         try {
             XSSFSheet sheet = this.workbook.getSheetAt(this.userSheet);
-            
+
+            // 기존 시트 내용을 완전히 초기화
+            int lastRowNum = sheet.getLastRowNum();
+            for (int i = lastRowNum; i >= 0; i--) {
+                XSSFRow row = sheet.getRow(i);
+                if (row != null) {
+                    sheet.removeRow(row);
+                }
+            }
+
+            // 새로운 사용자 정보 저장
             for (int i = 0; i < userInfo.size(); i++) {
-                XSSFRow row = sheet.createRow(i);
+                XSSFRow row = sheet.createRow(i); // 새로 생성
                 List<String> user = userInfo.get(i);
-                
+
                 for (int j = 0; j < user.size(); j++) {
                     XSSFCell cell = row.createCell(j);
                     cell.setCellValue(user.get(j));
                 }
             }
-            
-            try (FileOutputStream fileout = new FileOutputStream(this.excelPath)) {
-                this.workbook.write(fileout);
+
+            // 파일에 저장
+            try (FileOutputStream fileOut = new FileOutputStream(this.excelPath)) {
+                this.workbook.write(fileOut);
+                System.out.println("사용자 정보 저장 완료");
             } catch (SecurityException se) {
-                System.out.println("파일 접근 권한이 없습니다." + se);
+                System.out.println("파일 접근 권한이 없습니다: " + se);
             }
-            System.out.println("사용자 정보 저장 완료");
-            
+
+            // 디버깅용 출력
+            for (List<String> user : userInfo) {
+                System.out.println(user);
+            }
+
         } catch (IOException ioe) {
-            System.out.println("엑셀 파일 저장 중 입출력 오류가 발생했습니다." + ioe);
+            System.out.println("엑셀 파일 저장 중 입출력 오류가 발생했습니다: " + ioe);
         }
     }
     public static void main(String args[]) throws IOException {

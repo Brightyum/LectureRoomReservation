@@ -22,7 +22,7 @@ public interface Admin {
     //void getUserInformation();
     
     // 사용자 정보 수정
-    public void setUserInformation();
+   // public void setUserInformation();
     
     // 사용자 문의사항 보기
     public void getUserContact();
