@@ -123,7 +123,7 @@ public class UserManagement implements Admin {
         return userIdList;    
     }
 
-    @Override
+    //@Override
     public void setUserWarning() {
         System.out.print("경고를 줄 사용자를 검색하세요: ");
         String userName = this.sc.nextLine();
