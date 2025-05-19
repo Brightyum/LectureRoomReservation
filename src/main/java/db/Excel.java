@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class Excel {
     private FileInputStream file;
-    private XSSFWorkbook workbook;
+    XSSFWorkbook workbook;
     private String excelPath;
     private int userSheet;
     private int defaultExcelRowIndex;
