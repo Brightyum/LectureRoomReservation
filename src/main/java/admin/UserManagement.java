@@ -74,7 +74,12 @@ public class UserManagement implements Admin {
             }
         }
         //저장 하는 코드를 구성
-        excel.saveUserInfo(this.userInfo);
+        try {
+            this.excel.saveUserInfo(this.userInfo);
+            System.out.println("저장 완료");
+        } catch (Exception e) {
+            System.out.println("예외 발생: " + e.getMessage());
+        }
     }
 
     @Override
@@ -125,14 +130,22 @@ public class UserManagement implements Admin {
         
         return userIdList;    
     }
-
-    @Override
-    public void setUserWarning() {
-        System.out.print("경고를 줄 사용자를 검색하세요: ");
-        String userName = this.sc.nextLine();
+    
+    public boolean getIdCheck(String id) {
+        List<String> userIdList = this.getId();
+        
+        for (String userId : userIdList) {
+            if (id.equals(userId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //@Override
+    public void setUserWarning(String id) {
         
         for (List<String> userList : this.userInfo) {
-            if (userName.equals(userList.get(userNameIdx))) {
+            if (id.equals(userList.get(userIdIdx))) {
                 String userNoticeNum = userList.get(this.userNoticeIdx);
                 int num = Integer.parseInt(userNoticeNum);
                 
@@ -142,25 +155,9 @@ public class UserManagement implements Admin {
             }
         }
         System.out.println(this.userInfo);
-        // excel 저장할것.
         
-        System.out.print("저장하시겠습니까? 저장을 원하시면 y, 원하지 않는다면 n: ");
-        String check = this.sc.nextLine();
-        
-        while (true) {
-            switch (check) {
-                case "y": 
-                    excel.saveUserInfo(this.userInfo);
-                    break;
-                case "n":
-                    break;
-                default:
-                    System.out.print("y 또는 n을 입력하세요: ");
-                    check = this.sc.nextLine();
-                    continue;
-            }
-            break;
-        }
+        excel.saveUserInfo(this.userInfo);
+        System.out.println("경고 주기를 완료하였습니다.");
     }
     
     public List<String> getUserDetail(String userId) {
@@ -172,6 +169,39 @@ public class UserManagement implements Admin {
        }
        return null;
     }
+    
+    public boolean addUser(List<String> newUser) {
+        String newId = newUser.get(this.userIdIdx);
+        
+        if(this.getIdCheck(newId)) {
+            System.out.println("이미 존재하는 아이디입니다.");
+            return false;
+        }
+        
+        this.userInfo.add(newUser);
+        
+        try {
+            this.excel.saveUserInfo(this.userInfo);
+            System.out.println("저장 완료");
+            return true;
+        } catch (Exception e) {
+            System.out.println("예외 발생: " + e.getMessage());
+            return false;
+        }
+    }
+    public boolean removeUser(String id) {
+        Iterator<List<String>> iterator = this.userInfo.iterator();
+        while (iterator.hasNext()) {
+            List<String> user = iterator.next();
+            if (id.equals(user.get(this.userIdIdx))) {
+                iterator.remove();
+                this.excel.saveUserInfo(this.userInfo);
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public static void main(String args[]) throws IOException {
         UserManagement admin = new UserManagement();
         //admin.getUserInformation();

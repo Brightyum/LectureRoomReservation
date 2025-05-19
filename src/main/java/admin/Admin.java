@@ -30,5 +30,5 @@ public interface Admin {
     List<String> getUsers();
     
     // 사용자 경고
-    void setUserWarning();
+    //void setUserWarning();
 }

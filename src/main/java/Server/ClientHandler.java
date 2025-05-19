@@ -23,19 +23,20 @@ public class ClientHandler implements Runnable{
     
     @Override
     public void run() {
-        if (this.userCount.get() >= this.MAX_USER) {
+        if (userCount.incrementAndGet() >  MAX_USER) {
+            userCount.decrementAndGet();
             try {
                 PrintWriter out = new PrintWriter(this.clientSocket.getOutputStream(), true);
                 out.println("서버에 이용자가 가득 찼습니다. 나중에 다시 시도하세요");
+                
                 this.clientSocket.close();
             } catch (IOException e) {
                 System.out.println("연결중 오류 발생: " + e.getMessage());
             }
             return;
         }
-        
-        this.userCount.incrementAndGet();
-        System.out.println("현재 접속자 수: " + this.userCount.get());
+       
+        System.out.println("현재 접속자 수: " + userCount.get());
         
         try (
             BufferedReader in = new BufferedReader(
@@ -61,6 +62,9 @@ public class ClientHandler implements Runnable{
                 
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                userCount.decrementAndGet();
+                System.out.println("현재 접속자 수: " + userCount.get());
             }
         }
     }

@@ -81,10 +81,25 @@ public class AdminDetailUserView extends JFrame{
                 JOptionPane.showMessageDialog(AdminDetailUserView.this, "수정 내용이 저장되었습니다");
             }
         });
+        
+        JButton warningButton = new JButton("경고주기");
+        warningButton.addActionListener(new ActionListener() {
+           @Override
+           public void actionPerformed(ActionEvent e) {
+               String id = table.getValueAt(0, 1).toString();
+               
+               um.setUserWarning(id);
+               
+           }
+        });
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.add(saveButton);
+        buttonPanel.add(warningButton);
 
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.add(scrollPane, BorderLayout.CENTER);
-        contentPanel.add(saveButton, BorderLayout.SOUTH);
+        contentPanel.add(buttonPanel, BorderLayout.SOUTH);
+        
         setContentPane(contentPanel);
         pack();
     }
