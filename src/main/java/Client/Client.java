@@ -23,9 +23,21 @@ public class Client {
             this.out = new PrintWriter(this.socket.getOutputStream(), true);
             this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             
-            String s = in.readLine();
-            this.view = new AdminView(s, this);
-            view.show();
+            String serverMessage = in.readLine();
+            
+            if (serverMessage == null) {
+                System.out.println("서버로부터 응답이 없습니다.");
+                return;
+            }
+            
+            if (serverMessage.contains("접속하셨습니다.")) {
+                this.view = new AdminView(serverMessage, this);
+                view.show();
+            }  else if (serverMessage.contains("가득")) {
+                new ClientFullView();
+                this.closeSilently();
+            }
+            
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,6 +55,16 @@ public class Client {
             e.printStackTrace();
         } finally {
             System.exit(0);
+        }
+    }
+    
+    public void closeSilently() {
+        try {
+            if (in != null) in.close();
+            if (out != null) out.close();
+            if (socket != null) socket.close();   
+        } catch (IOException e) {
+            
         }
     }
     
