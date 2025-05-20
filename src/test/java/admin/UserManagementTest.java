@@ -22,31 +22,15 @@ import java.util.logging.Logger;
  */
 public class UserManagementTest {
     private UserManagement um;
-    private UserManagement um2;
     private StubExcel stubExcel;
     private Scanner scanner;
     
-    public UserManagementTest() {
-       
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-        
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws IOException {
         System.out.println("setUp()");
-        this.um = new UserManagement();
-    }
-    
-    @AfterEach
-    public void tearDown() {
+        this.stubExcel = new StubExcel();
+        this.scanner = new Scanner("테스트");
+        this.um = new UserManagement(this.stubExcel, this.scanner);
     }
 
     /**
@@ -56,44 +40,95 @@ public class UserManagementTest {
     @Test
     public void testDefaultConstructor() {
         System.out.printf("%s: 기본 생성자 테스트", this.um.getClass().getSimpleName());
+        assertNotNull(this.um);
+        assertTrue(!this.um.getUsers().isEmpty());
     }
     
+    // 매개변수를 가진 생성자 테스트
     @Test
     public void testAnotherConstructor() {
         String mockInput = "홍길동";
         this.scanner = new Scanner(mockInput);
-        
+
         try {
             this.stubExcel = new StubExcel();
-            this.um2 = new UserManagement(this.stubExcel, scanner);
-            System.out.printf("%s: 매개변수를 가진 생성자 테스트", this.um2.getClass().getSimpleName());
+
+            this.um = new UserManagement(this.stubExcel, scanner);
+
+            assertNotNull(um); 
+            List<String> ids = um.getId(); 
+            assertFalse(ids.isEmpty());
+            assertEquals("id123", ids.get(0));
+
         } catch (IOException ex) {
-            System.out.println("예외 발생" + ex);
+            fail("IOException 발생: " + ex.getMessage());
         }
+    }
+    
+    //사용자 추가 기능 테스트
+    @Test
+    public void testAddUser() {
+        List<String> newUser = new ArrayList<>();
+        newUser.add("김광식");
+        newUser.add("id100");
+        newUser.add("pw101");
+        newUser.add("겜공");
+        newUser.add("0");
+        newUser.add("-");
+        newUser.add("0");
+        
+        boolean result = this.um.addUser(newUser);
+        assertTrue(result);
+    }
+    
+    //사용자 삭제 기능 테스트
+    @Test
+    public void testRemoveUser() {
+        String id = this.stubExcel.getUserInfo().get(0).get(1);
+        boolean result = this.um.removeUser(id);
+        
+        assertTrue(result);
+        assertNull(this.um.getUserDetail(id));
+    }
+    
+    //사용자 정보 수정 기능 테스트
+    @Test
+    public void testSetUserInformation() {
+        String id = this.stubExcel.getUserInfo().get(0).get(1);
+        List<String> update = new ArrayList<>();
+        update.add("박병모");
+        update.add("pw999");
+        update.add("인문과");
+        
+        this.um.setUserInformation(update, id);
+        
+        List<String> result = this.um.getUserDetail(id);
+        assertEquals("박병모", result.get(0));
+        assertEquals("pw999", result.get(2));
+        assertEquals("인문과", result.get(3));
         
     }
     
+    //사용자 경고 주기 기능 테스트
     @Test
     public void testSetUserWarning() {
-        String mockInput = "홍길동\ny\n";
-        this.scanner = new Scanner(mockInput);
+        String id = this.stubExcel.getUserInfo().get(0).get(1);
+        int beforeWarning = Integer.parseInt(this.um.getUserDetail(id).get(4));
         
-        try {
-            this.stubExcel = new StubExcel();
-            this.um2 = new UserManagement(this.stubExcel, scanner);
-            
-            System.out.println("경고 메서드 호출");
-            um2.setUserWarning(); // 홍길동의 경고 횟수가 0 → 1로 바뀌어야 함
-
-            List<List<String>> updated = stubExcel.getUserInfo();
-            
-            // 결과 값 비교: 예상 결과 값 vs 실제 저장된 값
-            assertEquals("1", updated.get(0).get(4), "경고 횟수가 1로 증가했는지 확인");
-        } catch (IOException ex) {
-            System.out.println("예외 발생" + ex);
-        }
+        this.um.setUserWarning(id);
         
+        int result = Integer.parseInt(this.um.getUserDetail(id).get(4));
         
+        assertEquals(beforeWarning + 1, result);
     }
-
+    
+    //사용자 정보 보기 기능 테스트
+    @Test
+    public void testGetUserDetail() {
+        String id = this.stubExcel.getUserInfo().get(0).get(1);
+        List<String> result = this.um.getUserDetail(id);
+        
+        assertNotNull(result);
+        assertEquals(id, result.get(1));
+    }
 }
