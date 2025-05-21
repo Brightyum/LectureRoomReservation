@@ -15,7 +15,7 @@ import db.RoomStatus;
  * @author user
  */
 public class RoomInfo implements System {
-    
+    // 디버깅용
     private BrokenComputer brokenComputer;
     private RoomStatus roomStatus;
     
