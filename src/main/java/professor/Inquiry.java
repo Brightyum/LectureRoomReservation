@@ -9,36 +9,39 @@ import java.time.LocalDateTime;
  * @author leeseungmin
  */
 public class Inquiry {
-    private String id;// 문의자 id
     private String name;// 문의자 이름
+    private String id;// 문의자 id
     private String message;// 문의내용
+    private String answeredInquiries;// 답변
     private LocalDateTime time;// 문의한 시간
-    private boolean checked;// 문의내용 확인여부
-
-    public Inquiry(String id, String name, String message) {
-        this.id = id;
-        this.name = name;
-        this.message = message;
-        this.time = LocalDateTime.now();
-        this.checked = false;
+    private boolean isChecked;// 문의내용 확인여부
+    private boolean isPriority;// 중요도
+    // 지워야함 //
+    public String TestId;
+    public String TestName;
+    
+    public Inquiry(){
+        this.TestId = "id2";
+        this.TestName = "유재석";
     }
 
+    public Inquiry(String name, String id, String message, LocalDateTime time, boolean ischecked , String answeredInquiries , boolean isPriority ) {
+        this.name = name;
+        this.id = id;
+        this.message = message;
+        this.time = time;
+        this.isChecked = ischecked;
+        this.answeredInquiries = answeredInquiries;
+        this.isPriority = isPriority;
+    }
     
     public String getId() { return id; }
     public String getName() { return name; }
     public String getMessage() { return message; }
     public LocalDateTime getTime() { return time; }
-    
-    public boolean isChecked() {// boolean 으로 처리 or 미처리 된문의사항을 가른다
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
-    
-    @Override
-    public String toString() {
-        return "[" + time + "] " + name + "(" + id + "): " + message;
-    }
+    public String getAnsweredInquiries() {return answeredInquiries; }
+    public boolean isChecked() { return isChecked; }
+    public void setChecked(boolean checked) { this.isChecked = checked; }
+    public boolean isPriority() {return isPriority; }
+    public void setPriority(boolean Priority) {this.isPriority = Priority; }
 }

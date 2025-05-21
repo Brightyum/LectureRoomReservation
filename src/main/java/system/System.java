@@ -15,5 +15,6 @@ public interface System {
     //컴퓨터 작동 현황
     void getComAction();
     
-    
+    // 강의실 자리 예약
+    void reserveLectureSeat();
 }

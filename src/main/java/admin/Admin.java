@@ -6,6 +6,7 @@ package admin;
 
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Scanner;
 /**
  *
@@ -26,8 +27,8 @@ public interface Admin {
     void checkAnother();
     
     // 사용자 목록 확인
-    void getUsers();
+    List<String> getUsers();
     
     // 사용자 경고
-    void setUserWarning();
+    //void setUserWarning();
 }
