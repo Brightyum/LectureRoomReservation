@@ -61,7 +61,7 @@ public class UserManagement implements Admin {
     }
     
     //@Override
-    public void setUserInformation(List<String> list, String id) {
+    public boolean setUserInformation(List<String> list, String id) {
         for (List<String> user : this.userInfo) {
              if (id.equals(user.get(this.userIdIdx))) {
                  int listNameIdx = 0;
@@ -77,8 +77,10 @@ public class UserManagement implements Admin {
         try {
             this.excel.saveUserInfo(this.userInfo);
             System.out.println("저장 완료");
+            return true;
         } catch (Exception e) {
             System.out.println("예외 발생: " + e.getMessage());
+            return false;
         }
     }
 
@@ -142,7 +144,7 @@ public class UserManagement implements Admin {
         return false;
     }
     //@Override
-    public void setUserWarning(String id) {
+    public boolean setUserWarning(String id) {
         
         for (List<String> userList : this.userInfo) {
             if (id.equals(userList.get(userIdIdx))) {
@@ -156,8 +158,15 @@ public class UserManagement implements Admin {
         }
         System.out.println(this.userInfo);
         
-        excel.saveUserInfo(this.userInfo);
-        System.out.println("경고 주기를 완료하였습니다.");
+        //저장 하는 코드를 구성
+        try {
+            this.excel.saveUserInfo(this.userInfo);
+            System.out.println("저장 완료");
+            return true;
+        } catch (Exception e) {
+            System.out.println("예외 발생: " + e.getMessage());
+            return false;
+        }
     }
     
     public List<String> getUserDetail(String userId) {

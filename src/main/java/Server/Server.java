@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class Server {
     private ServerSocket serverSocket;
     private Socket clientSocket;
-    private ClientHandler handler;
+    private ClienttHandler handler;
     
     public Server() {
         try {
@@ -35,7 +35,7 @@ public class Server {
                 this.clientSocket = serverSocket.accept();
                 System.out.println("사용자가 연결되었습니다.");
 
-                handler = new ClientHandler(this.clientSocket);
+                handler = new ClienttHandler(this.clientSocket);
                 new Thread(handler).start();
 
             } catch (IOException ex) {
