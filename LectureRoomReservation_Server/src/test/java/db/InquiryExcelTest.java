@@ -4,6 +4,7 @@
  */
 package db;
 
+import Model.InquiryExcel;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,7 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import professor.Inquiry;
+import Controller.professor.Inquiry;
 
 /**
  *

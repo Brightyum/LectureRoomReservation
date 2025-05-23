@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package professor;
+package Controller.professor;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import db.InquiryExcel;
+import Model.InquiryExcel;
 import java.awt.Component;
 import javax.swing.table.*;
 

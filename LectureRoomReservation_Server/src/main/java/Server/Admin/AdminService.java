@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Server.Admin;
-import admin.UserManagement;
-import db.Excel;
+import Controller.admin.UserManagement;
+import Model.Excel;
 import java.io.IOException;
 import java.util.List;
 import java.util.*;

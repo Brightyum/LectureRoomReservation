@@ -2,8 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package professor;
-import professor.Inquiry;
+package Controller.professor;
+import Controller.professor.Inquiry;
 import javax.swing.JPanel;
 
 /**
