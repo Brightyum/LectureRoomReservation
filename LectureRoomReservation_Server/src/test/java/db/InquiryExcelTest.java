@@ -21,28 +21,28 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import Controller.professor.Inquiry;
+import Model.Inquiry;
 
 /**
  *
  * @author leeseungmin
  */
 public class InquiryExcelTest {
-    
+
     private String TEST_EXCEL_PATH = "test_Inquiry.xlsx";
     private InquiryExcel inquiryExcel;
 
     public InquiryExcelTest() {
     }
-    
+
     @BeforeAll
     public static void setUpClass() {
     }
-    
+
     @AfterAll
     public static void tearDownClass() {
     }
-    
+
     @BeforeEach
     void setUp() throws IOException {
         // 기존 파일 삭제
@@ -59,7 +59,7 @@ public class InquiryExcelTest {
             headerRow.createCell(4).setCellValue("확인여부");
             headerRow.createCell(5).setCellValue("답변");
             headerRow.createCell(6).setCellValue("중요도");
-            
+
             try (FileOutputStream fos = new FileOutputStream(TEST_EXCEL_PATH)) {
                 workbook.write(fos);
             }
@@ -67,7 +67,7 @@ public class InquiryExcelTest {
         inquiryExcel = new InquiryExcel();
         inquiryExcel.setExcelFilePath(TEST_EXCEL_PATH);
     }
-    
+
     @AfterEach
     void tearDown() throws IOException {
         Files.deleteIfExists(Paths.get(TEST_EXCEL_PATH));
@@ -85,21 +85,20 @@ public class InquiryExcelTest {
     }
 
     /**
-     * Test of getProcessedAndUnprocessedInquiries method, of class InquiryExcel.
-     */   
+     * Test of getProcessedAndUnprocessedInquiries method, of class
+     * InquiryExcel.
+     */
     @Test
     public void testGetProcessedAndUnprocessedInquiries() { // 테스트완료
         System.out.println("getProcessedAndUnprocessedInquiries");
-        InquiryExcel instance = new InquiryExcel();       
+        InquiryExcel instance = new InquiryExcel();
         instance.setExcelFilePath(TEST_EXCEL_PATH);
         Map<String, List<Inquiry>> result = instance.getProcessedAndUnprocessedInquiries();
         assertNotNull(result);
         assertEquals(0, result.get("processed").size());
         assertEquals(0, result.get("unprocessed").size());
     }
-    
-    
-    
+
     /**
      * Test of updateCheckStatus method, of class InquiryExcel.
      */
@@ -142,5 +141,5 @@ public class InquiryExcelTest {
         boolean result = instance.addInquiry(inquiry);
         assertEquals(expResult, result);
     }
-    
+
 }

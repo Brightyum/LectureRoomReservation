@@ -4,19 +4,18 @@
  */
 package Controller.professor;
 
-
 import Model.InquiryExcel;
-
+import Model.Inquiry;
 
 /**
  *
  * @author leeseungmin
  */
-
 public class ProfessorImpl implements Professor {
+
     //테스트용 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     Inquiry inquiry = new Inquiry();
-    
+
     private InquiryExcel inquiryExcel = new InquiryExcel();
 
     @Override
@@ -28,24 +27,24 @@ public class ProfessorImpl implements Professor {
     public void getPastRoster() {
         // TODO: 강의실 과거 사용 명단 확인 구현 예정
     }
-    
+
     @Override
     public void CreateInquiry() {   //TestId 지워야함 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        new CreateInquiryFrame(inquiry.TestId,inquiry.TestName).setVisible(true);
+        //new CreateInquiryFrame(inquiry.TestId,inquiry.TestName).setVisible(true);
     }
 
     @Override
     public void PshowInquiry() {
-        new PshowInquiryFrame().setVisible(true);
+        //new PshowInquiryFrame().setVisible(true);
     }
 
     @Override
     public void UshowInquiry() {       //TestId 지워야함 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        new UshowInquiryFrame(inquiry.TestId,inquiry.TestName).setVisible(true);
+        //new UshowInquiryFrame(inquiry.TestId,inquiry.TestName).setVisible(true);
     }
 
     @Override
     public void AnsweredInquiries() {
-        new PshowInquiryFrame().setVisible(true);
+        //new PshowInquiryFrame().setVisible(true);
     }
 }

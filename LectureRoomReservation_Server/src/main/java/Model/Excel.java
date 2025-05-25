@@ -29,7 +29,7 @@ public class Excel {
     private int userLen;
     
     public Excel() throws IOException {
-        this.excelPath = "src/main/java/db/LectureRoomReservation.xlsx";
+        this.excelPath = "src/main/java/Model/LectureRoomReservation.xlsx";
         this.userSheet = 0;
         this.defaultExcelRowIndex = 0;
         this.defaultExcelColumnIndex = 0;
