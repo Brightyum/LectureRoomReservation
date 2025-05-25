@@ -9,6 +9,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <exec.mainClass>cse.oop2.ch02.dog.lectureroomreservation_client.LectureRoomReservation_Client</exec.mainClass>
+        <exec.mainClass>src/main/java/main/main.java</exec.mainClass>
     </properties>
 </project>
