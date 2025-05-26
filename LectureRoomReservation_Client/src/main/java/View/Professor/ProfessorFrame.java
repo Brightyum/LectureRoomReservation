@@ -87,7 +87,7 @@ public class ProfessorFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("로그아웃");
+        jButton6.setText("종료");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -190,7 +190,7 @@ public class ProfessorFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO 로그아웃 버튼
+        System.exit(0);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     public static void main(String args[]) {
