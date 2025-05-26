@@ -166,11 +166,11 @@ public class ProfessorFrame extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         new PshowInquiryFrame(client).setVisible(true);
         dispose();
-
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO 과거 강의실 사용명단 버튼       
+        new PastRosterFrame(client).setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jButton5ComponentAdded

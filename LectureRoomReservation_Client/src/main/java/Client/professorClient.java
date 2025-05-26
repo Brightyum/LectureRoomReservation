@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
  *
  * @author leeseungmin
  */
-
 public class professorClient {
 
     private Socket socket;
@@ -46,8 +45,8 @@ public class professorClient {
             } else {
                 out.println("ROLE=PROFESSOR");
                 javax.swing.SwingUtilities.invokeLater(() -> {
-                new ProfessorFrame(this).setVisible(true);
-            });
+                    new ProfessorFrame(this).setVisible(true);
+                });
             }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "서버 연결 실패: " + e.getMessage());
@@ -125,6 +124,39 @@ public class professorClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<String> requestRoomList() throws IOException {
+        out.println("GET_ROOM_LIST");
+        return readListResponse();
+    }
+
+    public List<Object[]> requestPastReservations(String roomID) throws IOException {
+        out.println("GET_PAST_RESERVATIONS|" + roomID);
+        List<Object[]> reservations = new ArrayList<>();
+        String line;
+        while (!(line = in.readLine()).equals("END")) {
+            reservations.add(line.split("\\|"));
+        }
+        return reservations;
+    }
+
+    private List<String> readListResponse() throws IOException {
+        List<String> list = new ArrayList<>();
+        String response;
+        while (!(response = in.readLine()).equals("END")) {
+            list.add(response);
+        }
+        return list;
+    }
+
+    private List<Object[]> readTableData() throws IOException {
+        List<Object[]> data = new ArrayList<>();
+        String line;
+        while (!(line = in.readLine()).equals("END")) {
+            data.add(line.split("\\|"));
+        }
+        return data;
     }
 
     public static void main(String[] args) {
