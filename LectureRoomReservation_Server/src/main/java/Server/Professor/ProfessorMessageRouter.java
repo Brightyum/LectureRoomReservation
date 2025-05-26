@@ -4,11 +4,15 @@
  */
 package Server.Professor;
 
+import Model.RoomStatus;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import Model.Inquiry;
 import Model.InquiryExcel;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -16,20 +20,62 @@ import java.util.List;
  */
 public class ProfessorMessageRouter {
 
+    private final RoomStatus roomStatus;
     private InquiryExcel inquiryExcel;
 
-    public ProfessorMessageRouter() {
+    public ProfessorMessageRouter() throws IOException {
         this.inquiryExcel = new InquiryExcel();
+        this.roomStatus = new RoomStatus();
     }
 
-    public String judgeCommand(String input, PrintWriter out) {
+    public String judgeCommand(String input, PrintWriter out) throws IOException {
         if ("GET_INQUIRY_LIST".equals(input.trim())) {
             List<Inquiry> inquiries = inquiryExcel.loadAllInquiries();
             for (Inquiry inquiry : inquiries) {
                 out.println(inquiry.toNetworkString());
             }
             out.println("END");
-            return null; 
+            return null;
+        }
+
+        if (input.startsWith("GET_ROOM_LIST")) {
+            try {
+                XSSFWorkbook workbook = roomStatus.getWorkbook();
+                List<String> rooms = new ArrayList<>();
+                for (int i = 2; i <= 8; i++) {
+                    String sheetName = workbook.getSheetName(i);
+                    rooms.add(sheetName);
+                }
+                for (String room : rooms) {
+                    out.println(room);
+                }
+                out.println("END");
+                return null;
+            } catch (Exception e) {
+                out.println("FAIL|SERVER_ERROR");
+                return "FAIL|SERVER_ERROR";
+            }
+        }
+
+        if (input.startsWith("GET_PAST_RESERVATIONS|")) {
+            String[] parts = input.split("\\|");
+            if (parts.length != 2) {
+                out.println("FAIL|INVALID_FORMAT");
+                return "FAIL|INVALID_FORMAT";
+            }
+            String roomID = parts[1];
+            try {
+                RoomStatus roomStatus = new RoomStatus();
+                List<String> reservations = roomStatus.getReservationsByRoom(roomID);
+                for (String res : reservations) {
+                    out.println(res); 
+                }
+                out.println("END"); 
+                return null;
+            } catch (Exception e) {
+                out.println("FAIL|SERVER_ERROR");
+                return "FAIL|SERVER_ERROR";
+            }
         }
 
         if (input.startsWith("UPDATE_ANSWER|")) {
