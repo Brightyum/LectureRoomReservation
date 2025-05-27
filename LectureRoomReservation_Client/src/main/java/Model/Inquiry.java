@@ -76,7 +76,8 @@ public class Inquiry {
     
     /**
      * inquiry 객체의 정보를 문자열로 반환하는 기능입니다.
-     * @return 객체 정보를 '|' 로 구분해서 문자열로 전송합니다.
+     * 
+     * @return 객체 정보를 '|' 로 구분해서 문자열로 반환합니다.
      */
     public String toNetworkString() {
         return String.format("%s|%s|%s|%s|%s|%s|%s",
@@ -91,9 +92,10 @@ public class Inquiry {
     }
 
     /**
-     * 네트워크로 전송된 문자열을 다시 inquiry 객체로 변환하는 기능입니다.
+     * 네트워크로 전송된 문자열을 다시 inquiry 객체로 역변환하는 기능입니다.
+     * 
      * @param data 네트워크로 받은 inquiry 정보 문자열입니다.
-     * @return 파싱에 성공하면 inquiry객체 실패하면 null을 받습니다.
+     * @return 파싱에 성공하면 inquiry객체 실패하면 null을 반환합니다.
      */
     public static Inquiry fromNetworkString(String data) {
         if (data == null || data.trim().isEmpty()) {

@@ -11,14 +11,15 @@ import Model.Inquiry;
 import javax.swing.JPanel;
 
 /**
- *
+ * 교수용 메인메뉴 프레임 입니다.
+ * 
  * @author leeseungmin
  */
 public class ProfessorFrame extends javax.swing.JFrame {
 
-    private professorClient client;
-    Inquiry inquiry = new Inquiry();
-
+    private professorClient client;   // 서버와 통신하는 교수 클라이언트 객체
+    Inquiry inquiry = new Inquiry();  // 로그인하면 유저정보가 들어가있는객체 여야함. // TODO 로그인 기능이 완성되면 변경예정
+    
     public ProfessorFrame(professorClient client) {
         this.client = client;
         initComponents();

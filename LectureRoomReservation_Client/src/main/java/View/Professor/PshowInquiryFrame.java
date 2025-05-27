@@ -10,25 +10,24 @@ import javax.swing.table.DefaultTableModel;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import Model.Inquiry;
-import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import javax.swing.table.*;
 
 /**
- *
+ * 교수용 전체 문의를 확인하고 답변을 작성하는 프레임 입니다.
+ * 
  * @author leeseungmin
  */
 public class PshowInquiryFrame extends javax.swing.JFrame {
 
-    private professorClient client;
-    private List<Inquiry> sortedUnprocessed = new ArrayList<>();
-    private List<Inquiry> sortedProcessed = new ArrayList<>();
-    private List<Inquiry> processedInquiries = new ArrayList<>();
-    private List<Inquiry> unprocessedInquiries = new ArrayList<>();
+    private professorClient client;                                 // 서버와 통신하는 교수 클라이언트 객체
+    private List<Inquiry> sortedUnprocessed = new ArrayList<>();    // 우선순위 기준 정렬된 미처리 문의 리스트
+    private List<Inquiry> sortedProcessed = new ArrayList<>();      // 우선순위 기준 정렬된 처리된 문의 리스트
+    private List<Inquiry> processedInquiries = new ArrayList<>();   // 처리된 문의 리스트
+    private List<Inquiry> unprocessedInquiries = new ArrayList<>(); // 미처리 문의 리스트
 
     public PshowInquiryFrame(professorClient client) {
         this.client = client;
@@ -184,7 +183,7 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     /**
-     * 서버에서 inquiry.xlsx 파일을 받아와 ischecked 가 ture , false 인지분류하고 화면에 나타내는 기능입니다.
+     * 서버에서 데이터를 받아와 ischecked 값이 true , false 인지분류하고 화면에 나타내는 기능입니다.
      * 예외 발생시 콘솔에 에러 로그를 출력합니다.
      */
     private void refreshLists() {
@@ -242,7 +241,7 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
     }
     
     /**
-     * inquiry.xlsx 파일의 리스트를 우선순위 기준으로 정렬해서 우선순위가 ture 인 것들을 Jlist 에 최상단에 출력하는 기능입니다.
+     * 서버에서 받아온 inquiry.xlsx 파일의 리스트를 우선순위 기준으로 정렬해서 우선순위가 true(긴급) 인 문의를 Jlist 에 최상단에 출력하는 기능입니다.
      */
     private void updateListModels() {
         sortedUnprocessed = new ArrayList<>(unprocessedInquiries);
@@ -266,6 +265,7 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
     
     /**
      * Jlist에 이름(아이디) 를 선택하면 Jtable에 문의내역,시간,중요도,답변을 출력하는 기능입니다.
+     * 
      * @param inquiry 문의를 보여줄 객체
      * @param table 정보를 표시할 Jtable
      */
@@ -306,6 +306,7 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
     
     /**
      * 사용자가 미처리Jlist2 또는 처리Jlist1 문의를 선택하면 문의의 상세정보를 Jtable에 표시하는 기능입니다.
+     * 
      * @param evt 
      */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -342,6 +343,7 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
      * 사용자가 미처리된 문의를 선택하고 답변 작성후 답변등록 버튼을 누르면 서버로 답변을 보내는 기능입니다.
      * 답변등록이 성공되면 "답변 등록 성공" 라고 알림창이 띄어집니다.
      * 답변등록이 실패하면 "답변 등록 실패" 라고 알림창이 띄어집니다.
+     * 
      * @param evt 
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

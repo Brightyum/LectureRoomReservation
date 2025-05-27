@@ -14,18 +14,19 @@ import Model.Inquiry;
 import View.Professor.ProfessorFrame;
 
 /**
- *
+ * 사용자 자신이 작성한 문의사항을 볼 수 있는 프레임 입니다.
+ * 
  * @author leeseungmin
  */
 public class UshowInquiryFrame extends javax.swing.JFrame {
 
-    private String userId; 
-    private String userName; 
-    private DefaultListModel<String> unprocessedModel;
-    private DefaultListModel<String> processedModel;
-    private List<Inquiry> processedInquiriesList = new ArrayList<>();
-    private List<Inquiry> unprocessedInquiriesList = new ArrayList<>();
-    private professorClient client; 
+    private String userId; // 현재 사용자 아이디
+    private String userName; // 현재 사용자 이름
+    private DefaultListModel<String> unprocessedModel;  // 미처리 문의 목록을 표시하는 리스트
+    private DefaultListModel<String> processedModel;    // 처리된 문의 목록을 표시하는 리스트
+    private List<Inquiry> processedInquiriesList = new ArrayList<>();   // 처리된 문의 객체 리스트
+    private List<Inquiry> unprocessedInquiriesList = new ArrayList<>(); // 미처리 문의 객체 리스트
+    private professorClient client; // 서버와 통신하는 클라이언트 객체 TODO : 나중에 유저 객체로 바꿔야함
 
     public UshowInquiryFrame(professorClient client, String userId, String userName) {
         this.client = client;
@@ -38,7 +39,7 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
     }
     
     /**
-     * 사용자별로 문의내역을 불러와 ischecked 에 따라 분류하여 화면에 출력하는 기능입니다.
+     * 서버에서 전체 문의 내역을 받아와 현재 사용자의 문의만 골라 ischecked 값에 따라 미처리,처리로 구분하여 Jlist에 출력합니다.
      */
     private void loadInquiries() {
         processedModel.clear();
@@ -65,6 +66,7 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
     
     /**
      * Jlist에서 선택한 객체의 문의사항 정보를 Jtable에 출력하는 기능입니다.
+     * 
      * @param inquiry 문의사항 정보를 출력할 객체
      */
     private void showInquiryDetail(Inquiry inquiry) {
@@ -198,6 +200,7 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
 
     /**
      * 화면이 열릴때 Jtable을 초기화하고 Jlist에 미처리 , 처리 문의를 연결하는 기능입니다.
+     * 
      * @param evt 
      */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

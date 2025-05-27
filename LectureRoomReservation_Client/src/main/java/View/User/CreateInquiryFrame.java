@@ -19,14 +19,14 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 /**
- *
+ * 사용자가 문의사항을 작성하고 서버에 등록할 수 있는 문의작성 프레임 입니다.
  * @author leeseungmin
  */
 public class CreateInquiryFrame extends javax.swing.JFrame {
 
-    private professorClient client; 
-    private String userName;
-    private String userId;
+    private professorClient client; // 서버와 통신하는 유저 클라이언트 객체 TODO: 지금 교수클라이언트인데 유저 클라이언트로 수정 필요
+    private String userName;        // 현재 사용자 이름     
+    private String userId;          // 현재 사용자 아이디
 
     public CreateInquiryFrame(professorClient client, String userId, String userName) {
         this.userId = userId;
@@ -156,6 +156,7 @@ public class CreateInquiryFrame extends javax.swing.JFrame {
     /**
      * 사용자가 입력한 문의내용과 중요도를 서버에 전송해 새로운 문의를 등록하는 기능입니다.
      * 결과에 따라 "문의가 등록되었습니다." , "문의 등록 실패" 알람이 띄어집니다.
+     * 
      * @param evt 
      */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -216,7 +217,12 @@ public class CreateInquiryFrame extends javax.swing.JFrame {
         }.execute();
 
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
+    /**
+     * 
+     * 
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new ProfessorFrame(client).setVisible(true);
         dispose();

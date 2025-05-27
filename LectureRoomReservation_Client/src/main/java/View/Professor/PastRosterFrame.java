@@ -15,16 +15,19 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * 과거 강의실 사용 내역을 조회하는 프레임입니다.
+ * 강의실 목록 , 예약 내역 조회의 기능을 제공합니다.
+ * 
  * @author leeseungmin
  */
 public class PastRosterFrame extends javax.swing.JFrame {
-    private professorClient client; 
-    private DefaultTableModel tableModel;
+    private professorClient client;         // 서버와 통신하는 교수 클라이언트 객체
+    private DefaultTableModel tableModel;   // 강의실 예약 내역을 표시하는 테이블의 데이터 모델
     
     /**
      * 창이 열릴때 강의실 목록을 불러옵니다.
      * 사용자가 강의실을 선택할경우 해당 강의실의 과거 내역이 출력됩니다.
+     * 
      * @param client 
      */
     public PastRosterFrame(professorClient client) {
@@ -92,6 +95,7 @@ public class PastRosterFrame extends javax.swing.JFrame {
     /**
      * Jlist에서 강의실을 선택한다면 Jtable에 강의실호실의 과거 예약 내역을 불러오는 기능입니다.
      * 서버에서 예약내역을 불러오지 못한다면 "예약 내역 불러오기 실패" 알람을 띄웁니다.
+     * 
      * @param roomID 강의실 호실
      */
     private void loadReservations(String roomID) {
