@@ -15,19 +15,27 @@ import java.util.List;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
- *
+ * 교수 관련 서버 명령을 처리하는 라우터 클래스입니다.
+ * 
  * @author leeseungmin
  */
 public class ProfessorMessageRouter {
-
-    private final RoomStatus roomStatus;
-    private InquiryExcel inquiryExcel;
+    private final RoomStatus roomStatus;    // 강의실 상태 및 예약 정보를 관리하는 객체
+    private InquiryExcel inquiryExcel;      // 문의 내역을 엑셀 파일로 관리하는 객체
 
     public ProfessorMessageRouter() throws IOException {
         this.inquiryExcel = new InquiryExcel();
         this.roomStatus = new RoomStatus();
     }
-
+    
+    /**
+     * 교수 클라이언트로 받은 input을 해석해서 해당 명령에 맞는 동작을 수행 , 결과를 out(스트림) 으로 전송합니다
+     * 
+     * @param input 클라이언트로부터 받은 문자열
+     * @param out   결과를 전송할 출력 스트림
+     * @return      명령 처리 결과 문자열
+     * @throws IOException 입출력 오류발생시
+     */
     public String judgeCommand(String input, PrintWriter out) throws IOException {
         if ("GET_INQUIRY_LIST".equals(input.trim())) {
             List<Inquiry> inquiries = inquiryExcel.loadAllInquiries();
