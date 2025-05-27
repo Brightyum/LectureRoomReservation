@@ -36,7 +36,10 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
         initComponents();
         loadInquiries();
     }
-
+    
+    /**
+     * 사용자별로 문의내역을 불러와 ischecked 에 따라 분류하여 화면에 출력하는 기능입니다.
+     */
     private void loadInquiries() {
         processedModel.clear();
         unprocessedModel.clear();
@@ -59,7 +62,11 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
         jList1.setModel(unprocessedModel);
         jList2.setModel(processedModel);
     }
-
+    
+    /**
+     * Jlist에서 선택한 객체의 문의사항 정보를 Jtable에 출력하는 기능입니다.
+     * @param inquiry 문의사항 정보를 출력할 객체
+     */
     private void showInquiryDetail(Inquiry inquiry) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0); 
@@ -189,6 +196,10 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * 화면이 열릴때 Jtable을 초기화하고 Jlist에 미처리 , 처리 문의를 연결하는 기능입니다.
+     * @param evt 
+     */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},

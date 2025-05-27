@@ -182,7 +182,11 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * 서버에서 inquiry.xlsx 파일을 받아와 ischecked 가 ture , false 인지분류하고 화면에 나타내는 기능입니다.
+     * 예외 발생시 콘솔에 에러 로그를 출력합니다.
+     */
     private void refreshLists() {
         System.out.println("서버에서 문의 목록 새로고침 시작");
         new SwingWorker< List< Inquiry>, Void>() {
@@ -236,7 +240,10 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
             System.out.println("- " + inquiry.getMessage() + " | 답변: " + inquiry.getAnsweredInquiries());
         }
     }
-
+    
+    /**
+     * inquiry.xlsx 파일의 리스트를 우선순위 기준으로 정렬해서 우선순위가 ture 인 것들을 Jlist 에 최상단에 출력하는 기능입니다.
+     */
     private void updateListModels() {
         sortedUnprocessed = new ArrayList<>(unprocessedInquiries);
         sortedUnprocessed.sort((a, b) -> Boolean.compare(b.isPriority(), a.isPriority()));
@@ -256,7 +263,12 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
         }
         jList1.setModel(processedModel);
     }
-
+    
+    /**
+     * Jlist에 이름(아이디) 를 선택하면 Jtable에 문의내역,시간,중요도,답변을 출력하는 기능입니다.
+     * @param inquiry 문의를 보여줄 객체
+     * @param table 정보를 표시할 Jtable
+     */
     private void showInquiryDetail(Inquiry inquiry, JTable table) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -291,38 +303,11 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
         System.out.println("문의 내용: " + inquiry.getMessage());
         System.out.println("답변 내용: " + inquiry.getAnsweredInquiries());
     }
-
-    public static class MultiLineCellRenderer extends JTextArea implements TableCellRenderer {
-
-        public MultiLineCellRenderer() {
-            setLineWrap(true);
-            setWrapStyleWord(true);
-            setOpaque(true);
-        }
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value,
-                boolean isSelected, boolean hasFocus, int row, int column) {
-            setText(value == null ? "" : value.toString());
-            setSize(table.getColumnModel().getColumn(column).getWidth(), getPreferredSize().height);
-
-            if (isSelected) {
-                setBackground(table.getSelectionBackground());
-                setForeground(table.getSelectionForeground());
-            } else {
-                setBackground(table.getBackground());
-                setForeground(table.getForeground());
-            }
-
-            int preferredHeight = getPreferredSize().height;
-            if (table.getRowHeight(row) != preferredHeight) {
-                table.setRowHeight(row, preferredHeight);
-            }
-
-            return this;
-        }
-    }
-
+    
+    /**
+     * 사용자가 미처리Jlist2 또는 처리Jlist1 문의를 선택하면 문의의 상세정보를 Jtable에 표시하는 기능입니다.
+     * @param evt 
+     */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         jList2.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
@@ -353,7 +338,12 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
     private void jList2ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList2ValueChanged
 
     }//GEN-LAST:event_jList2ValueChanged
-
+    /**
+     * 사용자가 미처리된 문의를 선택하고 답변 작성후 답변등록 버튼을 누르면 서버로 답변을 보내는 기능입니다.
+     * 답변등록이 성공되면 "답변 등록 성공" 라고 알림창이 띄어집니다.
+     * 답변등록이 실패하면 "답변 등록 실패" 라고 알림창이 띄어집니다.
+     * @param evt 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int selectedIndex = jList2.getSelectedIndex(); 
         if (selectedIndex == -1) {

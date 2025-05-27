@@ -19,10 +19,14 @@ import javax.swing.table.DefaultTableModel;
  * @author leeseungmin
  */
 public class PastRosterFrame extends javax.swing.JFrame {
-
     private professorClient client; 
     private DefaultTableModel tableModel;
-
+    
+    /**
+     * 창이 열릴때 강의실 목록을 불러옵니다.
+     * 사용자가 강의실을 선택할경우 해당 강의실의 과거 내역이 출력됩니다.
+     * @param client 
+     */
     public PastRosterFrame(professorClient client) {
         this.client = client;
         initComponents();
@@ -47,12 +51,19 @@ public class PastRosterFrame extends javax.swing.JFrame {
 
         jButton1.addActionListener(e -> dispose());
     }
-
+    
+    /**
+     * Jtable을 초기화하는 기능입니다.
+     */
     private void initializeTable() {
         tableModel = (DefaultTableModel) jTable1.getModel();
         tableModel.setRowCount(0); 
     }
-
+    
+    /**
+     * 서버에서 .xlsx 파일의 시트를 읽어 강의실 리스트를 Jlist에 출력하는 기능입니다.
+     * 서버에서 예약내역 불러오지 못한다면 "강의실 목록 불러오기 실패" 알림창을 띄웁니다.
+     */
     private void loadRoomList() {
         new SwingWorker<List<String>, Void>() {
             @Override
@@ -77,7 +88,12 @@ public class PastRosterFrame extends javax.swing.JFrame {
             }
         }.execute();
     }
-
+    
+    /**
+     * Jlist에서 강의실을 선택한다면 Jtable에 강의실호실의 과거 예약 내역을 불러오는 기능입니다.
+     * 서버에서 예약내역을 불러오지 못한다면 "예약 내역 불러오기 실패" 알람을 띄웁니다.
+     * @param roomID 강의실 호실
+     */
     private void loadReservations(String roomID) {
         new SwingWorker<List<Object[]>, Void>() {
             @Override
