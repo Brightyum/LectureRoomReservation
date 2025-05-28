@@ -409,14 +409,6 @@ public class PshowInquiryFrame extends javax.swing.JFrame {
         }.execute();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    //===============================================================================================================================================================//
-    public static void main(String[] args) {
-        professorClient client = new professorClient();
-        java.awt.EventQueue.invokeLater(() -> {
-            new PshowInquiryFrame(client).setVisible(true);
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

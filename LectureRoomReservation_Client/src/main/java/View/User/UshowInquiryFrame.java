@@ -4,14 +4,13 @@
  */
 package View.User;
 
-import Client.professorClient;
+import Client.UserClient;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 import Model.Inquiry;
-import View.Professor.ProfessorFrame;
 
 /**
  * 사용자 자신이 작성한 문의사항을 볼 수 있는 프레임 입니다.
@@ -26,9 +25,9 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
     private DefaultListModel<String> processedModel;    // 처리된 문의 목록을 표시하는 리스트
     private List<Inquiry> processedInquiriesList = new ArrayList<>();   // 처리된 문의 객체 리스트
     private List<Inquiry> unprocessedInquiriesList = new ArrayList<>(); // 미처리 문의 객체 리스트
-    private professorClient client; // 서버와 통신하는 클라이언트 객체 TODO : 나중에 유저 객체로 바꿔야함
+    private UserClient client; // 서버와 통신하는 클라이언트 객체 TODO : 나중에 유저 객체로 바꿔야함
 
-    public UshowInquiryFrame(professorClient client, String userId, String userName) {
+    public UshowInquiryFrame(UserClient client, String userId, String userName) {
         this.client = client;
         this.userId = userId;
         this.userName = userName;
@@ -47,7 +46,7 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
         processedInquiriesList.clear();
         unprocessedInquiriesList.clear();
 
-        List<Inquiry> allInquiries = client.requestInquiryListFromServer();
+        List<Inquiry> allInquiries = client.requestInquiryListFromServer(userId);
         for (Inquiry inquiry : allInquiries) {
             if (inquiry.getId().equals(userId)) {
                 String entry = inquiry.getName() + "(" + inquiry.getId() + ")";
@@ -231,46 +230,9 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new ProfessorFrame(client).setVisible(true);
+        new UserFrame(client).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateInquiryFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreateInquiryFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreateInquiryFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreateInquiryFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //테스트용
-                Inquiry inquiry = new Inquiry();
-                professorClient client = new professorClient();
-                new UshowInquiryFrame(client, inquiry.TestId, inquiry.TestName).setVisible(true);
-            }
-        });
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -66,6 +66,12 @@ public class ReservationListSelectFrame extends javax.swing.JFrame {
 
         jLabel1.setText("예약 명단 선택");
 
+        date.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateActionPerformed(evt);
+            }
+        });
+
         cancel.setText("취소");
 
         jLabel2.setText("강의실 :");
@@ -129,6 +135,10 @@ public class ReservationListSelectFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void dateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateActionPerformed
 
     /**
      * @param args the command line arguments

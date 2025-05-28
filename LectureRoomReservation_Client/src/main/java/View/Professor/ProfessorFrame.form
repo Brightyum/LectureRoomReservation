@@ -54,11 +54,6 @@
                   <Component id="jButton5" alignment="0" max="32767" attributes="0"/>
                   <Component id="jButton6" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jButton1" max="32767" attributes="0"/>
-                  <Component id="jButton7" max="32767" attributes="0"/>
-              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -69,15 +64,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jButton1" max="32767" attributes="0"/>
-                  <Component id="jButton2" pref="35" max="32767" attributes="0"/>
-              </Group>
+              <Component id="jButton2" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton3" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="jButton7" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-              </Group>
+              <Component id="jButton3" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
               <Component id="jButton4" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
@@ -106,7 +95,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xac15;&#xc758;&#xc2e4; &#xc608;&#xc57d;&#xba85;&#xb2e8;"/>
+        <Property name="text" type="java.lang.String" value="&#xd604;&#xc7ac; &#xac15;&#xc758;&#xc2e4; &#xc608;&#xc57d;&#xba85;&#xb2e8;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
@@ -122,7 +111,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#xad50;&#xc218; &#xbb38;&#xc758;&#xc0ac;&#xd56d; &#xd655;&#xc778;"/>
+        <Property name="text" type="java.lang.String" value="&#xc804;&#xccb4; &#xbb38;&#xc758;&#xc0ac;&#xd56d; &#xc870;&#xd68c;"/>
       </Properties>
       <Events>
         <EventHandler event="componentAdded" listener="java.awt.event.ContainerListener" parameters="java.awt.event.ContainerEvent" handler="jButton5ComponentAdded"/>
@@ -135,22 +124,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#xc720;&#xc800; &#xbb38;&#xc758;&#xc0ac;&#xd56d; &#xd655;&#xc778;"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton7">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#xbb38;&#xc758;&#xc0ac;&#xd56d; &#xc791;&#xc131;&#xd558;&#xae30;"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
