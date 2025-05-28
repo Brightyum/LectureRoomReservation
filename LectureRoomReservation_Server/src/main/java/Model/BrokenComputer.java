@@ -15,7 +15,13 @@ import java.util.List;
  *
  * @author user
  */
+
+/**
+ * Excel 클래스 상속, 엑셀 workbook 객체 사용
+ * 고장난 컴퓨터 목록을 읽어오는 기능 제공
+ */
 public class BrokenComputer extends Excel {
+    // 기본 생성자
     public BrokenComputer() throws IOException {
         super();
     }
@@ -46,7 +52,7 @@ public class BrokenComputer extends Excel {
         return result;
     }
     
-    // RoomStatus에서 고장난 컴퓨터 ID 콘솔에 출력
+    // RoomStatus에서 고장난 컴퓨터 ID 콘솔에 출력 (디버깅용)
     public void readAndPrintBrokenComputer() {
         try {
             XSSFSheet sheet = this.workbook.getSheet("BrokenComputer");

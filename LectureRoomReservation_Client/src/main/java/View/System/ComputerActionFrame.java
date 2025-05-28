@@ -2,23 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Controller.system;
+package View.System;
 
 import java.awt.event.ActionEvent;
-import Model.BrokenComputer;
+import Client.ComClient;
 import java.io.IOException;
-import java.util.List;
 
 /**
  *
  * @author user
  */
-public class ComputerAction extends javax.swing.JFrame {
+public class ComputerActionFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form ComputerAction
+     * Creates new form ComputerActionFrame
      */
-    public ComputerAction() {
+    public ComputerActionFrame() {
         initComponents();
         
         select.addActionListener(new java.awt.event.ActionListener() {
@@ -26,21 +25,30 @@ public class ComputerAction extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose(); // 확인 버튼으로 창 닫기
             }
-            
         });
         
         try {
             // BrokenComputer 객체 생성
-            BrokenComputer bc = new BrokenComputer();
-            StringBuilder sb = new StringBuilder();
+            ComClient client = new ComClient();
             // 고장난 컴퓨터 ID 목록 가져오기
-            List<String> brokenList = bc.getBrokenComputerList(); // 데이터 가져오기
+            String response = client.requestBrokenComputerList();
+            client.close();
             
-            // 각 컴퓨터 ID 문자열에 추가
-            for (String id : brokenList) {
-                sb.append("컴퓨터 ID: ").append(id).append("\n");
+            StringBuilder sb = new StringBuilder();
+            
+            if (response.startsWith("SUCCESS|")) {
+                String data = response.substring("SUCCESS|".length());
+                String[] ids = data.split(",");
+            
+                // 각 컴퓨터 ID 문자열에 추가
+                for (String id : ids) {
+                    sb.append("컴퓨터 ID: ").append(id).append("\n");
+                }
+            } else if (response.startsWith("EMPTY|")) {
+                sb.append("고장난 컴퓨터가 없습니다.");
+            } else {
+                sb.append("서버 오류: ").append(response);
             }
-            
             comList.setText(sb.toString()); // JTextArea (comList)에 출력
         } catch (IOException e) {
             comList.setText("고장 컴퓨터 목록을 불러오는 중 오류 발생: " + e.getMessage());
@@ -133,20 +141,20 @@ public class ComputerAction extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ComputerAction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComputerActionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ComputerAction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComputerActionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ComputerAction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComputerActionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ComputerAction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComputerActionFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ComputerAction().setVisible(true);
+                new ComputerActionFrame().setVisible(true);
             }
         });
     }

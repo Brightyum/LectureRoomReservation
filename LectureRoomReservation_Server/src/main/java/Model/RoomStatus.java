@@ -92,87 +92,6 @@ public class RoomStatus extends Excel {
         }
     }
 
-    // 좌석 예약 (1인당 2자리 제한) -> 엑셀에 저장
-    public void reserveSeat(int seatNum, String roomID, String userName, String userID, String date, String time) {
-        int totalSeats = getTotalSeatsForRoom(roomID);
-
-        if (totalSeats == 0) {
-            System.out.println("존재하지 않는 강의실입니다.");
-            return;
-        }
-
-        if (seatNum < 1 || seatNum > totalSeats) {
-            System.out.println("잘못된 좌석 번호입니다. 유효한 좌석 번호를 입력하세요.");
-            return;
-        }
-
-        XSSFSheet sheet = workbook.getSheet(roomID);
-
-        if (sheet == null) {
-            System.out.println("시트를 찾을 수 없습니다.");
-            return;
-        }
-
-        int rows = sheet.getPhysicalNumberOfRows();
-        int activeReservations = 0;
-        boolean duplicateFound = false;
-
-        // 동일 시간, 좌석 중복 확인 및 중복 예약 검사
-        for (int i = 1; i < rows; i++) {
-            XSSFRow row = sheet.getRow(i);
-            if (row == null) {
-                continue;
-            }
-
-            String existingID = getCellValue(row.getCell(3));
-            String existingStatus = getCellValue(row.getCell(6));
-            String existingDate = getCellValue(row.getCell(4));
-            String existingTime = getCellValue(row.getCell(5));
-            String seatCell = getCellValue(row.getCell(1));
-            int existingSeatNum;
-
-            try {
-                existingSeatNum = Integer.parseInt(seatCell);
-            } catch (NumberFormatException e) {
-                continue;
-            }
-
-            // 같은 ID로 아직 사용 종료되지 안은 예약 2개 이상
-            if (existingID.equals(userID) && !(existingStatus.equals("사용 종료") || existingStatus.equals("예약 취소"))) {
-                activeReservations++;
-            }
-
-            // 같은 시간 같은 좌석 -> 중복으로 판단
-            if (existingDate.equals(date) && existingTime.equals(time) && existingSeatNum == seatNum) {
-                duplicateFound = true;
-            }
-        }
-
-        if (activeReservations >= 2) {
-            System.out.println("이미 2건 이상의 예약이 된 사용자는 예약할 수 없습니다.");
-            return;
-        }
-
-        if (duplicateFound) {
-            System.out.println("해당 좌석은 이미 예약이 존재합니다.");
-            return;
-        }
-        // 예약 정보 추가
-        int reserveNo = rows;
-
-        XSSFRow newRow = sheet.createRow(rows);
-        newRow.createCell(0).setCellValue(reserveNo);
-        newRow.createCell(1).setCellValue(seatNum);
-        newRow.createCell(2).setCellValue(userName);
-        newRow.createCell(3).setCellValue(userID);
-        newRow.createCell(4).setCellValue(date);
-        newRow.createCell(5).setCellValue(time);
-        newRow.createCell(6).setCellValue("예약됨");
-
-        saveUserInfo(getUserInfo());
-        System.out.println("예약이 완료되었습니다.");
-    }
-
     // 셀의 값을 문자열로 가져오는 메서드
     private String getCellValue(XSSFCell cell) {
         if (cell == null) {
@@ -209,16 +128,14 @@ public class RoomStatus extends Excel {
         // 해당 날짜의 예약 정보만 필터링
         for (int i = 1; i < rows; i++) {
             XSSFRow row = sheet.getRow(i);
-            if (row == null) {
-                continue;
-            }
+            if (row == null) continue;
 
             String rowDate = getCellValue(row.getCell(4));
             if (rowDate.equals(date)) {
-                String seat = getCellValue(row.getCell(1));
-                String name = getCellValue(row.getCell(2));
-                String id = getCellValue(row.getCell(3));
-                String time = getCellValue(row.getCell(5));
+                String seat = getCellValue(row.getCell(1)); // 좌석 번호
+                String name = getCellValue(row.getCell(2)); // 예약자 이름
+                String id = getCellValue(row.getCell(3));   // 예약자 ID
+                String time = getCellValue(row.getCell(5)); // 예약 시간
 
                 result.append(String.format("좌석: %s  |  이름: %s  |  ID: %s  |  시간: %s\n", seat, name, id, time));
                 found = true;
@@ -230,23 +147,6 @@ public class RoomStatus extends Excel {
         }
 
         return result.toString();
-    }
-
-    // 강의실에 따른 좌석 수
-    private int getTotalSeatsForRoom(String roomID) {
-        switch (roomID) {
-            case "911":
-            case "915":
-            case "916":
-            case "917":
-                return 40; // 실습실
-            case "912":
-            case "913":
-            case "914":
-                return 56; // 강의실
-            default:
-                return 0; // 잘못된 강의실
-        }
     }
 
     public List<String> getLectureRoomSheetNames() {

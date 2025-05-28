@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Controller.system;
+package View.System;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -13,42 +13,35 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class ReservationListSelect extends javax.swing.JFrame {
+public class ReservationListSelectFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ReservationList
-     */
-    public ReservationListSelect() {
+    public ReservationListSelectFrame() {
         initComponents();
-        
-        // 확인 버튼 기능
+
         next.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String selectedRoom = roomNum.getSelectedItem().toString(); // 콤보박스에서 선택된 강의실 번호 문자열로 가져오기
-                String inputDate = date.getText(); // 텍스트 필드에서 입력된 날짜 가져오기
-                
-                ReservationList list = null;
+                String selectedRoom = roomNum.getSelectedItem().toString();  // 콤보박스에서 선택된 강의실
+                String inputDate = date.getText();  // 텍스트필드에서 입력된 날짜
+
                 try {
-                    list = new ReservationList(inputDate, selectedRoom);
+                    ReservationListFrame frame = new ReservationListFrame(inputDate, selectedRoom);
+                    frame.setVisible(true);
+                    dispose();
                 } catch (IOException ex) {
-                    Logger.getLogger(ReservationListSelect.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ReservationListSelectFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                list.setVisible(true); // ReservationList 창을 화면에 표시
-                dispose(); // 현재 창 닫기
             }
-            
         });
-        
-        // 취소 버튼 기능
+
         cancel.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // 창 닫기
+                dispose();
             }
         });
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -154,21 +147,23 @@ public class ReservationListSelect extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReservationListSelect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservationListSelectFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReservationListSelect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservationListSelectFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReservationListSelect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservationListSelectFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReservationListSelect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservationListSelectFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReservationListSelect().setVisible(true);
+                new ReservationListSelectFrame().setVisible(true);
             }
         });
     }

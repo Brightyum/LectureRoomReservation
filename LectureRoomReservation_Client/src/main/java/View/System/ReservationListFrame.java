@@ -2,41 +2,56 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Controller.system;
+package View.System;
 
 import java.awt.event.ActionEvent;
-import Model.RoomStatus;
+import Client.ReservationListClient;
 import java.io.IOException;
 
 /**
  *
  * @author user
  */
-public class ReservationList extends javax.swing.JFrame {
+public class ReservationListFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ReservationList
-     */
-    public ReservationList(String inputDate, String selectedRoom) throws IOException {
+    public ReservationListFrame(String inputDate, String selectedRoom) throws IOException {
         initComponents();
-        
-        // ReservationListSelect에서 전달받은 날짜, 강의실 번호 표시
-        date.setText(inputDate); // 날짜 필드에 입력값 설정
-        roomNum.setText(selectedRoom); // 강의실 번호 필드에 입력값 설정
-        
-        // 엑셀 파일을 불러와 강의실 예약 현황 데이터 가져오기
-        RoomStatus rs = new RoomStatus();
-        String output = rs.getReservationList(selectedRoom, inputDate); // 선택한 강의실, 날짜에 해당하는 예약 목록 조회
-        reservationList.setText(output); // 조회된 예약 목록을 텍스트 영역에 출력
-        
+
+        date.setText(inputDate);      // 날짜 필드 표시
+        roomNum.setText(selectedRoom); // 강의실 필드 표시
+
+        try {
+            ReservationListClient client = new ReservationListClient();
+            String response = client.requestReservationList(selectedRoom, inputDate);
+            client.close();
+
+            StringBuilder sb = new StringBuilder();
+
+            if (response.startsWith("SUCCESS|")) {
+                String data = response.substring("SUCCESS|".length());
+                String[] rows = data.split(";");
+                for (String row : rows) {
+                    sb.append(row).append("\n");
+                }
+            } else if (response.startsWith("EMPTY|")) {
+                sb.append("해당 날짜에 예약된 정보가 없습니다.");
+            } else {
+                sb.append("서버 오류: ").append(response);
+            }
+
+            reservationList.setText(sb.toString());  // 예약 목록 출력
+        } catch (IOException e) {
+            reservationList.setText("서버 통신 오류: " + e.getMessage());
+        }
+
         select.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // 창 닫기
+                dispose();
             }
-            
         });
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
