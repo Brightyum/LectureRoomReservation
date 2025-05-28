@@ -4,8 +4,12 @@
  */
 package Server.User;
 
+import Model.Inquiry;
 import Model.InquiryExcel;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 사용자 관련 서버 명령을 처리하는 라우터 클래스입니다.
@@ -14,38 +18,50 @@ import java.util.Arrays;
  */
 public class UserMessageRouter {
 
-    private InquiryExcel inquiryExcel;  // 문의정보를 엑셀 파일로 관리하는 객체
+    private InquiryExcel inquiryExcel;
 
-    public UserMessageRouter() {
+    public UserMessageRouter() throws IOException {
         this.inquiryExcel = new InquiryExcel();
     }
     
     /**
      * 사용자 클라이언트로 받은 input을 해석해서 해당 명령에 맞는 동작을 수행 , 결과를 out(스트림) 으로 전송합니다
      * 
-     * @param input 클라이언트로 부터 받은 문자열
-     * @return input 처리 결과 SUCCESS , FAIL or UNKNOWN_COMMAND
+     * @param input 클라이언트로부터 받은 명령 문자열
+     * @param out 결과를 전송할 출력 스트림
+     * @return 명령 처리 결과 문자열
      */
-    public String judgeCommand(String input) {
+    public String judgeCommand(String input, PrintWriter out) {
+        if (input.startsWith("GET_MY_INQUIRIES|")) {
+            String[] parts = input.split("\\|");
+            if (parts.length != 2) {
+                out.println("FAIL|INVALID_FORMAT");
+                return "FAIL|INVALID_FORMAT";
+            }
+            String userId = parts[1];
+            List<Inquiry> userInquiries = inquiryExcel.getInquiriesByUserId(userId);
+            for (Inquiry inquiry : userInquiries) {
+                out.println(inquiry.toNetworkString());
+            }
+            out.println("END");
+            return null;
+        }
         if (input.startsWith("CREATE_INQUIRY|")) {
             String[] parts = input.split("\\|", 6);
             if (parts.length != 6) {
-                System.out.println("[서버] CREATE_INQUIRY 필드 개수 오류: " + input);
-                return "FAIL";
+                out.println("FAIL|INVALID_FORMAT");
+                return "FAIL|INVALID_FORMAT";
             }
-            System.out.println("[서버] CREATE_INQUIRY 파싱 값: " + Arrays.toString(parts));
             String name = parts[1];
             String id = parts[2];
             String message = parts[3];
             String time = parts[4];
             boolean isPriority = Boolean.parseBoolean(parts[5]);
-
-            System.out.println("[서버] 문의 등록 시도: " + name + ", " + id + ", " + message + ", " + time + ", " + isPriority);
-
             boolean success = inquiryExcel.addInquiry(name, id, message, time, isPriority);
-            System.out.println("[서버] 문의 등록 결과: " + (success ? "SUCCESS" : "FAIL"));
-            return success ? "SUCCESS" : "FAIL";
+            out.println(success ? "SUCCESS" : "FAIL");
+            return null;
         }
+        out.println("UNKNOWN_COMMAND");
         return "UNKNOWN_COMMAND";
     }
 }

@@ -80,7 +80,7 @@ public class ClienttHandler implements Runnable {
                 System.out.println("사용자 라우터");
                 String input;
                 while ((input = in.readLine()) != null) {
-                    String response = userRouter.judgeCommand(input);
+                    String response = userRouter.judgeCommand(input,out);
                     if (response != null) {
                         out.println(response);
                     }

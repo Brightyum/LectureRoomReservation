@@ -16,16 +16,17 @@ import Model.Inquiry;
 
 /**
  * inquiry 정보를 엑셀 파일로 관리하는 클래스 입니다.
- * 
+ *
  * @author leeseungmin
  */
 public class InquiryExcel {
+
     private String EXCEL_FILE_PATH = "src/main/java/Model/Inquiry.xlsx";    // 문의내역을 저장하는 .xlsx 파일 경로
-    
+
     /**
-     * 엑셀파일에서 모든 문의내역을 읽어 inquiry 객체 리스트로 반환합니다.
-     * 날짜 데이터 타입이 다르면 "날짜 파싱 실패" 메세지를 콘솔에 출력합니다.
-     * 
+     * 엑셀파일에서 모든 문의내역을 읽어 inquiry 객체 리스트로 반환합니다. 날짜 데이터 타입이 다르면 "날짜 파싱 실패" 메세지를
+     * 콘솔에 출력합니다.
+     *
      * @return 엑셀파일에서 읽은 inquiry 객체 리스트
      */
     public List<Inquiry> loadAllInquiries() {
@@ -33,7 +34,7 @@ public class InquiryExcel {
         try (FileInputStream fis = new FileInputStream(EXCEL_FILE_PATH); Workbook workbook = new XSSFWorkbook(fis)) {
 
             DataFormatter dataFormatter = new DataFormatter();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"); 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
             Sheet sheet = workbook.getSheetAt(0);
 
             for (int i = 1; i <= sheet.getLastRowNum(); i++) {
@@ -46,7 +47,7 @@ public class InquiryExcel {
                 String message = dataFormatter.formatCellValue(row.getCell(2));
                 String dateStr = dataFormatter.formatCellValue(row.getCell(3));
                 LocalDateTime time = null;
-                
+
                 if (!dateStr.isEmpty()) {
                     try {
                         time = LocalDateTime.parse(dateStr, formatter);
@@ -57,24 +58,24 @@ public class InquiryExcel {
 
                 String isCheckedStr = dataFormatter.formatCellValue(row.getCell(4)).toLowerCase();
                 boolean isChecked = Boolean.parseBoolean(isCheckedStr);
-                
-                String answeredInquiries = dataFormatter.formatCellValue(row.getCell(5));    
-                
+
+                String answeredInquiries = dataFormatter.formatCellValue(row.getCell(5));
+
                 String isPriorityStr = dataFormatter.formatCellValue(row.getCell(6)).toLowerCase();
-                boolean isPriority = Boolean.parseBoolean(isPriorityStr);                
-                
-                inquiries.add(new Inquiry(name, id, message, time, isChecked, answeredInquiries, isPriority));              
+                boolean isPriority = Boolean.parseBoolean(isPriorityStr);
+
+                inquiries.add(new Inquiry(name, id, message, time, isChecked, answeredInquiries, isPriority));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return inquiries;
     }
-    
+
     /**
      * 엑셀 파일에서 모든 문의내역을 읽어 미처리,처리로 분류한 Map을 반환합니다.
-     * 
-     * @return 미처리,처리로 분류된 문의 리스트가 담긴 Map 
+     *
+     * @return 미처리,처리로 분류된 문의 리스트가 담긴 Map
      */
     public Map< String, List< Inquiry>> getProcessedAndUnprocessedInquiries() {
         List< Inquiry> all = loadAllInquiries();
@@ -95,12 +96,12 @@ public class InquiryExcel {
         map.put("unprocessed", unprocessed);
         return map;
     }
-    
+
     /**
      * 답변한 문의의 처리 상태를 변경하는 기능입니다.
-     * 
+     *
      * @param inquiryId 처리 상태를 변경할 아이디
-     * @param checked   변경할 처리상태(T:처리됨,F:미처리)
+     * @param checked 변경할 처리상태(T:처리됨,F:미처리)
      * @return 업데이트 성공시 true , 실패시 false
      */
     public boolean updateCheckStatus(String inquiryId, boolean checked) {
@@ -138,15 +139,15 @@ public class InquiryExcel {
             return false;
         }
     }
-    
+
     /**
-     * 클라이언트에서 답변한 문의를 엑셀파일에 추가하는 기능입니다. 
-     * 
-     * @param name   문의한 사람 이름
-     * @param id     문의한 사람 아이디
-     * @param time   문의한 시간
+     * 클라이언트에서 답변한 문의를 엑셀파일에 추가하는 기능입니다.
+     *
+     * @param name 문의한 사람 이름
+     * @param id 문의한 사람 아이디
+     * @param time 문의한 시간
      * @param answer 답변 내용
-     * @return 추가 성공시 true , 실패시 false        
+     * @return 추가 성공시 true , 실패시 false
      */
     public boolean updateAnswer(String name, String id, String time, String answer) {
         boolean updated = false;
@@ -188,16 +189,16 @@ public class InquiryExcel {
             return false;
         }
     }
-    
+
     /**
      * 사용자가 작성한 새로운 문의를 엑셀파일에 추가하는 기능입니다.
-     * 
-     * @param name       문의한 사람 이름
-     * @param id         문의한 사람 아이디
-     * @param message    문의한 내용
-     * @param time       문의한 시간
+     *
+     * @param name 문의한 사람 이름
+     * @param id 문의한 사람 아이디
+     * @param message 문의한 내용
+     * @param time 문의한 시간
      * @param isPriority 중요도
-     * @return 추가 성공시 true , 실패시 false  
+     * @return 추가 성공시 true , 실패시 false
      */
     public boolean addInquiry(String name, String id, String message, String time, boolean isPriority) {
         try (FileInputStream fis = new FileInputStream(EXCEL_FILE_PATH); Workbook workbook = new XSSFWorkbook(fis)) {
@@ -225,15 +226,17 @@ public class InquiryExcel {
             return false;
         }
     }
-    
+
     /**
      * inquiry 객체를 엑셀 파일에 추가하는 기능입니다.
-     * 
+     *
      * @param inquiry 추가할 inquiry 객체
-     * @return 추가 성공시 true , 실패시 false 
+     * @return 추가 성공시 true , 실패시 false
      */
     public boolean addInquiry(Inquiry inquiry) {
-        if (inquiry == null) return false;
+        if (inquiry == null) {
+            return false;
+        }
         return addInquiry(
                 inquiry.getName(),
                 inquiry.getId(),
@@ -242,11 +245,28 @@ public class InquiryExcel {
                 inquiry.isPriority()
         );
     }
-    
+
+    /**
+     * 특정 사용자 ID에 해당하는 문의 내역을 조회합니다.
+     *
+     * @param userId 사용자 ID
+     * @return 해당 사용자의 Inquiry 리스트
+     */
+    public List<Inquiry> getInquiriesByUserId(String userId) {
+        List<Inquiry> all = loadAllInquiries();
+        List<Inquiry> userInquiries = new ArrayList<>();
+        for (Inquiry inquiry : all) {
+            if (inquiry.getId().equals(userId)) {
+                userInquiries.add(inquiry);
+            }
+        }
+        return userInquiries;
+    }
+
     /**
      * 엑셀 파일 경로를 바꾸는 기능입니다 . test 할때 필요함
-     * 
-     * @param path 
+     *
+     * @param path
      */
     public void setExcelFilePath(String path) {
         this.EXCEL_FILE_PATH = path;
