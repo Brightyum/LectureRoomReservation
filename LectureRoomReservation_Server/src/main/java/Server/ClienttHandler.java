@@ -4,6 +4,7 @@
  */
 package Server;
 
+import Server.Login.LoginMessageRouter;
 import Server.Admin.AdminMessageRouter;
 import Server.User.UserMessageRouter;
 import Server.Professor.ProfessorMessageRouter;
@@ -54,7 +55,20 @@ public class ClienttHandler implements Runnable {
                 out.println("INVALID_ROLE");
                 return;
             }
-
+            System.out.println(roleLine);
+            if (roleLine.startsWith("login")) {
+                LoginMessageRouter loginRouter = new LoginMessageRouter();
+                System.out.println("로그인 라우터");
+                String input;
+                
+                while ((input = in.readLine()) != null) {
+                    String response = loginRouter.judgeCommand(input);
+                    if (response != null) {
+                        out.println(response);
+                    }
+                }
+            }
+            
             if (roleLine.startsWith("ROLE=PROFESSOR")) {
                 ProfessorMessageRouter professorRouter = new ProfessorMessageRouter();
                 System.out.println("교수 라우터");

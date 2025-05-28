@@ -4,9 +4,9 @@
  */
 package Client;
 
-import Client.AdminServerResponse.ServerResponse;
+import Client.LoginServerResponse.LoginServerResponse;
 import View.ClientFullView;
-import View.Admin.AdminView;
+import View.Login.LoginView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,25 +17,25 @@ import java.net.Socket;
  *
  * @author user
  */
-public class Client {
+public class Login {
     private Socket socket;
-    private AdminView view;
     private PrintWriter out;
     private BufferedReader in;
-    private ServerResponse sr;
-    
-    public Client() {
+    private LoginView view;
+    private LoginServerResponse lsr;
+    public Login() {
         try {
             this.socket = new Socket("localhost", 10020);
             this.out = new PrintWriter(this.socket.getOutputStream(), true);
             this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-            out.println("ROLE=ADMIN");
+
             String serverMessage = in.readLine();
             
             if (serverMessage != null && serverMessage.contains("접속하셨습니다.")) {
-                //this.view = new AdminView(this);
+                out.println("login");
+                this.view = new LoginView(this);
                 this.listenFromServer();
-                this.sr= new ServerResponse();
+                this.lsr= new LoginServerResponse(view);
 
             }  else if (serverMessage.contains("가득")) {
                 new ClientFullView();
@@ -45,10 +45,10 @@ public class Client {
                 System.out.println(serverMessage);
                 return;
             }
-            
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
     }
     
     public void sendMessage(String msg) {
@@ -61,26 +61,12 @@ public class Client {
                 String response;
                 while ((response = in.readLine()) != null) {
                     System.out.println("서버로부터 응답: " + response);
-                    sr.judgeCommand(response);
+                    lsr.judgeCommand(response);
                 }
             } catch (IOException e) {
                 System.out.println("서버 응답 수신 중 오류");
             }
         }).start();
-    }
-    
-    public void sendClose() {
-        try {
-            this.out.println("종료를 하겠습니다.");
-            this.out.close();
-            this.in.close();
-            this.socket.close();
-            System.out.println("사용자 종료 되었습니다.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            System.exit(0);
-        }
     }
     
     public void closeSilently() {
@@ -93,12 +79,7 @@ public class Client {
         }
     }
     
-    public ServerResponse getServerResponse() {
-        return this.sr;
-    }
-    
-    public static void main(String[] args) {
-        new Client();
+    public LoginServerResponse getServerResponse() {
+        return this.lsr;
     }
 }
-

@@ -36,7 +36,7 @@ public class Excel {
         this.file = new FileInputStream(this.excelPath);
         this.workbook = new XSSFWorkbook(this.file);
         this.userList = new ArrayList<>();
-        this.userLen = 7;
+        this.userLen = 8;
     }
     
     public void readUser() {
