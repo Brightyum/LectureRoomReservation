@@ -8,6 +8,8 @@ import View.User.CreateInquiryFrame;
 import View.User.UshowInquiryFrame;
 import Client.professorClient;
 import Model.Inquiry;
+import View.System.ReservationListSelectFrame;
+import View.System.ComputerActionFrame;
 
 /**
  * 교수용 메인메뉴 프레임 입니다.
@@ -59,14 +61,14 @@ public class ProfessorFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("현재 강의실 예약명단");
+        jButton3.setText("강의실 예약명단 조회");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("과거 강의실 사용명단");
+        jButton4.setText("고장난 컴퓨터 조회");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -137,17 +139,13 @@ public class ProfessorFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO 강의실 예약명단 버튼
+        new ReservationListSelectFrame().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         new PshowInquiryFrame(client).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        new PastRosterFrame(client).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jButton5ComponentAdded
         // 잘못 만들어진 버튼
@@ -156,6 +154,11 @@ public class ProfessorFrame extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO 고장난 컴퓨터 조회 버튼
+        new ComputerActionFrame().setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
