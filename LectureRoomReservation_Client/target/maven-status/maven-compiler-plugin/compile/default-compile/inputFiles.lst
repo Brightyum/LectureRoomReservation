@@ -1,25 +1,25 @@
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\User\UshowInquiryFrame.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Admin\AdminDetailUserView.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Professor\PshowInquiryFrame.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\AdminServerResponse\ServerResponse.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\System\ReservationListFrame.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\System\ReservationListSelectFrame.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Admin\AdminView.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\Client.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Professor\PastRosterFrame.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Professor\ProfessorFrame.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\professorClient.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Admin\AdminAddUserView.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\ReservationListClient.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\LoginServerResponse\LoginServerResponse.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\User\CreateInquiryFrame.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\ClientFullView.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\main\Main.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Login\SignUpView.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\UserClient.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\System\ComputerActionFrame.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\User\UserFrame.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Model\Inquiry.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\Login.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\ComClient.java
-C:\Users\user\Administrator\Documents\NetBeansProjects\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Login\LoginView.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Admin\AdminView.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\User\UserFrame.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Admin\AdminDetailUserView.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\ComClient.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\System\ComputerActionFrame.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Professor\PshowInquiryFrame.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\Login.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\main\Main.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\System\ReservationListFrame.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Login\SignUpView.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\ClientFullView.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\professorClient.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\User\UshowInquiryFrame.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\AdminServerResponse\ServerResponse.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\User\CreateInquiryFrame.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\System\ReservationListSelectFrame.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\Client.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Professor\PastRosterFrame.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\UserClient.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Model\Inquiry.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\ReservationListClient.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Login\LoginView.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Professor\ProfessorFrame.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\Client\LoginServerResponse\LoginServerResponse.java
+C:\Users\mgzza\OneDrive\바탕 화면\과제\소프트웨어 공학\LectureRoomReservation\LectureRoomReservation_Client\src\main\java\View\Admin\AdminAddUserView.java
