@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ClienttHandler implements Runnable {
 
     private Socket clientSocket;
-    private static final int MAX_USER = 3;
+    private static final int MAX_USER = 4;
     private static final AtomicInteger userCount = new AtomicInteger(0);
     private AdminMessageRouter router;
     private ProfessorMessageRouter professorRouter;

@@ -9,7 +9,10 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import Model.Inquiry;
 import Model.InquiryExcel;
+import Model.RoomReservation;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -85,7 +88,40 @@ public class ProfessorMessageRouter {
                 return "FAIL|SERVER_ERROR";
             }
         }
+        if (input.startsWith("TRY_RESERVATION|")) {
+            String[] parts = input.split("\\|", 7);
+            if (parts.length != 7) {
+                out.println("TRY_RESERVATION_FAIL|INVALID_FORMAT");
+                return "TRY_RESERVATION_FAIL|INVALID_FORMAT";
+            }
 
+            String room = parts[1];
+            String seat = parts[2];
+            String name = parts[3];
+            String id = parts[4];
+
+            // 날짜 포맷 변경
+            String rawDate = parts[5];
+            String date = LocalDate.parse(rawDate).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+
+            String time = parts[6];
+
+            try {
+                RoomReservation rr = new RoomReservation();
+                boolean success = rr.addReservation(room, seat, name, id, date, time);
+                if (success) {
+                    out.println("TRY_RESERVATION_SUCCESS");
+                    return null;
+                } else {
+                    out.println("TRY_RESERVATION_FAIL|중복 예약 또는 오류");
+                    return "TRY_RESERVATION_FAIL|중복 예약 또는 오류";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                out.println("TRY_RESERVATION_FAIL|서버 오류");
+                return "TRY_RESERVATION_FAIL|서버 오류";
+            }
+        }
         if (input.startsWith("UPDATE_ANSWER|")) {
             String[] parts = input.split("\\|", 5);
             if (parts.length != 5) {

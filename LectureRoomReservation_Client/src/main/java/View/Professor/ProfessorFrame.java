@@ -10,6 +10,7 @@ import Client.professorClient;
 import Model.Inquiry;
 import View.System.ReservationListSelectFrame;
 import View.System.ComputerActionFrame;
+import View.User.ReservationView;
 
 /**
  * 교수용 메인메뉴 프레임 입니다.
@@ -20,6 +21,7 @@ public class ProfessorFrame extends javax.swing.JFrame {
 
     private professorClient client;   // 서버와 통신하는 교수 클라이언트 객체
     Inquiry inquiry = new Inquiry();  // 로그인하면 유저정보가 들어가있는객체 여야함. // TODO 로그인 기능이 완성되면 변경예정
+   
     
     public ProfessorFrame(professorClient client) {
         this.client = client;
@@ -152,6 +154,8 @@ public class ProfessorFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO 강의실 예약 버튼
+        new ReservationView(client).setVisible(true);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

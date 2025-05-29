@@ -129,6 +129,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xac15;&#xc758;&#xc2e4; &#xc608;&#xc57d;&#xd558;&#xae30;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton7">
       <Properties>

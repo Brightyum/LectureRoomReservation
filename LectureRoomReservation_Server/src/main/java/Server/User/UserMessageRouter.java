@@ -6,8 +6,11 @@ package Server.User;
 
 import Model.Inquiry;
 import Model.InquiryExcel;
+import Model.RoomReservation;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,6 +35,8 @@ public class UserMessageRouter {
      * @return 명령 처리 결과 문자열
      */
     public String judgeCommand(String input, PrintWriter out) {
+        input = input.trim();
+        
         if (input.startsWith("GET_MY_INQUIRIES|")) {
             String[] parts = input.split("\\|");
             if (parts.length != 2) {
@@ -61,6 +66,43 @@ public class UserMessageRouter {
             out.println(success ? "SUCCESS" : "FAIL");
             return null;
         }
+        
+        if (input.startsWith("TRY_RESERVATION|")) {
+            String[] parts = input.split("\\|", 7);
+            if (parts.length != 7) {
+                out.println("TRY_RESERVATION_FAIL|INVALID_FORMAT");
+                return "TRY_RESERVATION_FAIL|INVALID_FORMAT";
+            }
+
+            String room = parts[1];
+            String seat = parts[2];
+            String name = parts[3];
+            String id = parts[4];
+
+            // 날짜 포맷 변경
+            String rawDate = parts[5];
+            String date = LocalDate.parse(rawDate).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+
+            String time = parts[6];
+
+            try {
+                RoomReservation rr = new RoomReservation();
+                boolean success = rr.addReservation(room, seat, name, id, date, time);
+                if (success) {
+                    out.println("TRY_RESERVATION_SUCCESS");
+                    return null;
+                    //return "TRY_RESERVATION_SUCCESS";
+                } else {
+                    out.println("TRY_RESERVATION_FAIL|중복 예약 또는 오류");
+                    return "TRY_RESERVATION_FAIL|중복 예약 또는 오류";
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                out.println("TRY_RESERVATION_FAIL|서버 오류");
+                return "TRY_RESERVATION_FAIL|서버 오류";
+            }
+        }
+
         out.println("UNKNOWN_COMMAND");
         return "UNKNOWN_COMMAND";
     }

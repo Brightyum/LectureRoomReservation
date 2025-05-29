@@ -127,26 +127,7 @@ public class Excel {
         }
     }
     
-    public String getCellValue(XSSFCell cell) {
-        if (cell == null) {
-            return "";
-        }
-        switch (cell.getCellType()) {
-            case STRING:
-                return cell.getStringCellValue().trim();
-            case NUMERIC:
-                double value = cell.getNumericCellValue();
-                if (org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted(cell)) {
-                    return cell.getLocalDateTimeCellValue().toLocalDate().toString();
-                } else {
-                    return String.valueOf((int) value);
-                }
-            case BOOLEAN:
-                return String.valueOf(cell.getBooleanCellValue());
-            default:
-                return "";
-        }
-    }
+    
     
     public static void main(String args[]) throws IOException {
         Excel e = new Excel();

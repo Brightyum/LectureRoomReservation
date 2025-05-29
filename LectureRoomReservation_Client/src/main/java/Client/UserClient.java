@@ -4,9 +4,11 @@
  */
 package Client;
 
+
 import Model.Inquiry;
 import View.ClientFullView;
 import View.User.UserFrame;
+import View.User.ReservationView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,13 +24,14 @@ import javax.swing.JOptionPane;
  *
  * @author leeseungmin
  */
-public class UserClient {
+public class UserClient implements MessageSender {
 
     private Socket socket;                  // 서버와의 네트워크를 연결을 담당하는 소캣 객체
     private PrintWriter out;                // 서버로 메세지를 전송하기 위한 출력 스트림
     private BufferedReader in;              // 서버로 메세지를 수신하기 위한 입력 스트림
     private boolean isConnected = false;    // 서버와의 연결 상태를 나타내는 플래그
-
+    private ReservationView reservationView;
+    
     public UserClient() {
         connectToServer();
     }
@@ -53,6 +56,7 @@ public class UserClient {
                 close();
             } else {
                 out.println("ROLE=USER");
+                listenFromServer();
                 javax.swing.SwingUtilities.invokeLater(() -> {
                     new UserFrame(this).setVisible(true);
                 });
@@ -108,7 +112,48 @@ public class UserClient {
         }
         return inquiries;
     }
+    
+    @Override
+    public void sendMessage(String msg) {
+        out.println(msg);
+    }
+    
+    public void listenFromServer() {
+        new Thread(() -> {
+            try {
+                String response;
+                while ((response = in.readLine()) != null) {
+                    System.out.println("[서버 응답] " + response);
+                    handleServerMessage(response);
+                }
+            } catch (IOException e) {
+                System.out.println("서버 응답 수신 중 오류: " + e.getMessage());
+            }
+        }).start();
+    }
 
+    // 서버에서 받은 메시지 처리 로직
+    private void handleServerMessage(String response) {
+        String[] parts = response.split("\\|");
+        String command = parts[0];
+
+        switch (command) {
+            case "TRY_RESERVATION_SUCCESS":
+                JOptionPane.showMessageDialog(null, "예약이 성공적으로 처리되었습니다.");
+                break;
+            case "TRY_RESERVATION_FAIL":
+                JOptionPane.showMessageDialog(null, "예약 실패: " + (parts.length > 1 ? parts[1] : ""));
+                break;
+            default:
+                System.out.println("알 수 없는 명령: " + command);
+                break;
+        }
+    }
+    
+    public PrintWriter getOut() {
+        return this.out;
+    }
+    
     /**
      * 서버와의 네트워크연결 및 입출력 스트림을 종료하는 기능입니다. 예외 발생시 콘솔에 에러 로그를 출력합니다.
      */

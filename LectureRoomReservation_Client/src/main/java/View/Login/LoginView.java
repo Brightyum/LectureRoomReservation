@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Client.Login;
 import Client.Client;
+import Client.UserClient;
 import Client.professorClient;
 import View.Admin.AdminView;
 import View.Login.SignUpView;
@@ -121,6 +122,10 @@ public class LoginView extends JFrame {
         switch (result) {
             case "학생":
                 JOptionPane.showMessageDialog(this, "학생");
+                javax.swing.SwingUtilities.invokeLater(() -> {
+                    new UserClient(); // UserClient 인스턴스를 생성하여 사용자 화면 실행
+                });
+                this.dispose();
                 break;
             case "교수":
                 JOptionPane.showMessageDialog(this, "교수");

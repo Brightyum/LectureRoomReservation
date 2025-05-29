@@ -8,6 +8,7 @@ import Client.UserClient;
 import Model.Inquiry;
 import View.System.ComputerActionFrame;
 import View.System.ReservationListSelectFrame;
+import View.User.ReservationView;
 
 /**
  *
@@ -82,6 +83,11 @@ public class UserFrame extends javax.swing.JFrame {
         });
 
         jButton6.setText("강의실 예약하기");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("강의실 사용종료");
 
@@ -159,6 +165,11 @@ public class UserFrame extends javax.swing.JFrame {
         // TODO 고장난 컴퓨터 목록
         new ComputerActionFrame().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        new ReservationView(client).setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
