@@ -126,6 +126,28 @@ public class Excel {
             System.out.println("엑셀 파일 저장 중 입출력 오류가 발생했습니다: " + ioe);
         }
     }
+    
+    public String getCellValue(XSSFCell cell) {
+        if (cell == null) {
+            return "";
+        }
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue().trim();
+            case NUMERIC:
+                double value = cell.getNumericCellValue();
+                if (org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted(cell)) {
+                    return cell.getLocalDateTimeCellValue().toLocalDate().toString();
+                } else {
+                    return String.valueOf((int) value);
+                }
+            case BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue());
+            default:
+                return "";
+        }
+    }
+    
     public static void main(String args[]) throws IOException {
         Excel e = new Excel();
         e.readUser();
