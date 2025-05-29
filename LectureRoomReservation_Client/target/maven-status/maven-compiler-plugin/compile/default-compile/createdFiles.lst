@@ -21,6 +21,7 @@ View\Professor\ProfessorFrame$2.class
 View\Professor\PastRosterFrame$6.class
 View\Professor\PshowInquiryFrame$7.class
 View\User\CreateInquiryFrame$2.class
+View\User\UserFrame$5.class
 View\System\ReservationListSelectFrame$1.class
 View\System\ComputerActionFrame$1.class
 View\System\ReservationListFrame$1.class
@@ -29,9 +30,9 @@ Client\ComClient.class
 View\Login\SignUpView.class
 View\User\UshowInquiryFrame$3.class
 Client\professorClient.class
-View\System\ReservationListSelectFrame$4.class
 View\Professor\ProfessorFrame$3.class
 View\Professor\PshowInquiryFrame$4.class
+View\User\UserFrame$4.class
 View\Professor\PastRosterFrame$3.class
 View\System\ComputerActionFrame$2.class
 Client\Login.class
@@ -47,7 +48,6 @@ View\Professor\PshowInquiryFrame$5.class
 View\System\ReservationListFrame$2.class
 View\Professor\PastRosterFrame$4.class
 View\User\UserFrame$3.class
-View\System\ComputerActionFrame$3.class
 Model\Inquiry.class
 View\User\CreateInquiryFrame$1.class
 Client\ReservationListClient.class

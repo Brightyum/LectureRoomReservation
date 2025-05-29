@@ -24,8 +24,8 @@ public class Inquiry {
     public String TestName;
 
     public Inquiry() {
-        this.TestId = "id2";
-        this.TestName = "유재석";
+        this.TestId = "id1";
+        this.TestName = "이승민";
     }
 
     public Inquiry(String name, String id, String message, LocalDateTime time, boolean ischecked, String answeredInquiries, boolean isPriority) {
