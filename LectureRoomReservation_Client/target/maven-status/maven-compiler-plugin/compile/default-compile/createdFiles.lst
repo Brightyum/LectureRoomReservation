@@ -27,7 +27,6 @@ View\User\CreateInquiryFrame$2.class
 View\User\UserFrame$5.class
 View\System\ReservationListSelectFrame$1.class
 View\System\ComputerActionFrame$1.class
-Client\UserServerResponse\UserServerResponse.class
 View\System\ReservationListFrame$1.class
 View\Admin\AdminDetailUserView.class
 Client\ComClient.class
