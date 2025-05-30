@@ -19,15 +19,7 @@ public class Inquiry {
     private LocalDateTime time;         // 문의한 시간
     private boolean isChecked;          // 문의내용 확인여부
     private boolean isPriority;         // 중요도
-    // 지워야함 //
-    public String TestId;
-    public String TestName;
-
-    public Inquiry() {
-        this.TestId = "id2";
-        this.TestName = "유재석";
-    }
-
+    
     public Inquiry(String name, String id, String message, LocalDateTime time, boolean ischecked, String answeredInquiries, boolean isPriority) {
         this.name = name;
         this.id = id;
