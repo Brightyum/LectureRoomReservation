@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
  */
-package db;
+package Model;
 
-import Model.InquiryExcel;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +20,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import Model.Inquiry;
 
 /**
  *
@@ -103,13 +101,12 @@ public class InquiryExcelTest {
      * Test of updateCheckStatus method, of class InquiryExcel.
      */
     @Test
-    public void testUpdateCheckStatus() { // 테스트 완료
+    public void testUpdateCheckStatus() { // 테스트완료
         System.out.println("updateCheckStatus");
         String inquiryId = "";
         boolean checked = false;
-        InquiryExcel instance = new InquiryExcel();
         boolean expResult = false;
-        boolean result = instance.updateCheckStatus(inquiryId, checked);
+        boolean result = inquiryExcel.updateCheckStatus(inquiryId, checked);
         assertEquals(expResult, result);
     }
 
@@ -117,29 +114,67 @@ public class InquiryExcelTest {
      * Test of updateAnswer method, of class InquiryExcel.
      */
     @Test
-    public void testUpdateAnswer() { // 테스트 완료
+    public void testUpdateAnswer() { // 테스트완료
         System.out.println("updateAnswer");
-        String name = "";
-        String id = "";
-        String time = "";
-        String answer = "";
-        InquiryExcel instance = new InquiryExcel();
-        boolean expResult = false;
-        boolean result = instance.updateAnswer(name, id, time, answer);
-        assertEquals(expResult, result);
+        String name = "이승민";
+        String id = "id1";
+        String message = "test";
+        String time = "2025-05-31T12:00:00";
+        boolean isPriority = false;
+        inquiryExcel.addInquiry(name, id, message, time, isPriority);
+        String answer = "테스트 답변";
+        boolean result = inquiryExcel.updateAnswer(name, id, time, answer);
+        assertTrue(result);
     }
 
     /**
      * Test of addInquiry method, of class InquiryExcel.
      */
     @Test
-    public void testAddInquiry() { // 테스트 완료
+    public void testAddInquiry() { // 테스트완료
         System.out.println("addInquiry");
-        Inquiry inquiry = null;
+        String name = "";
+        String id = "";
+        String message = "";
+        String time = "";
+        boolean isPriority = false;
+        boolean result = inquiryExcel.addInquiry(name, id, message, time, isPriority);
+        assertFalse(result);
+    }
+
+    /**
+     * Test of getInquiriesByUserId method, of class InquiryExcel.
+     */
+    @Test
+    public void testGetInquiriesByUserId() { //실패
+        System.out.println("getInquiriesByUserId");
+        inquiryExcel.addInquiry("이승민", "id1", "test", "2025-05-31T12:00:00", false);
+
+        // 존재하는 아이디로 조회
+        List<Inquiry> hongList = inquiryExcel.getInquiriesByUserId("id1");
+        assertEquals(1, hongList.size());
+        assertEquals("이승민", hongList.get(0).getName());
+
+        // 없는 아이디로 조회
+        List<Inquiry> noneList = inquiryExcel.getInquiriesByUserId("id0");
+        assertTrue(noneList.isEmpty());
+
+        // 빈 아이디로 조회
+        List<Inquiry> emptyList = inquiryExcel.getInquiriesByUserId("");
+        assertTrue(emptyList.isEmpty());
+    }
+
+    /**
+     * Test of setExcelFilePath method, of class InquiryExcel.
+     */
+    @Test
+    public void testSetExcelFilePath() { // 테스트완료
+        System.out.println("setExcelFilePath");
+        String path = "";
         InquiryExcel instance = new InquiryExcel();
-        boolean expResult = false;
-        boolean result = instance.addInquiry(inquiry);
-        assertEquals(expResult, result);
+        instance.setExcelFilePath(path);
+        // TODO review the generated test code and remove the default call to fail.
+        //fail("The test case is a prototype.");
     }
 
 }
