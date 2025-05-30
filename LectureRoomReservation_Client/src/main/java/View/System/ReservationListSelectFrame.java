@@ -47,11 +47,8 @@ public class ReservationListSelectFrame extends javax.swing.JFrame {
             }
         });
 
-        cancel.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
+        cancel.addActionListener((ActionEvent e) -> {
+            dispose();
         });
     }
     

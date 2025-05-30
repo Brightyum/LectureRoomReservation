@@ -24,28 +24,20 @@ public class ComClient {
     private BufferedReader in;
 
     public ComClient() throws IOException {
-        socket = new Socket("localhost", 10020);
+        socket = new Socket("localhost", 10020); // 서버 주소 및 포트
         out = new PrintWriter(socket.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-        // 역할 알리기
-        out.println("ROLE=ADMIN");
-        String serverMessage = in.readLine();
-        System.out.println("[ComMessageClient] 서버: " + serverMessage);
     }
 
     /**
-     * 고장 컴퓨터 목록 요청 메서드
-     * 메시지: BROKEN|LIST
-     * @return 서버 응답 문자열 (고장 컴퓨터 목록)
+     * 고장난 컴퓨터 목록 요청
+     * @return 서버의 응답 문자열
      */
     public String requestBrokenComputerList() {
-        String msg = "GET_BROKEN_LIST";
-        out.println(msg);
         try {
+            out.println("GET_BROKEN_LIST");
             return in.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
             return "ERROR|서버 응답 실패";
         }
     }
@@ -55,13 +47,8 @@ public class ComClient {
             if (out != null) out.close();
             if (in != null) in.close();
             if (socket != null) socket.close();
-            System.out.println("[ComMessageClient] 연결 종료");
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    
-        public static void main(String[] args) throws IOException {
-        new ComClient();
     }
 }
