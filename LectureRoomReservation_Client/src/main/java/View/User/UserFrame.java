@@ -143,12 +143,12 @@ public class UserFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new CreateInquiryFrame(client, inquiry.TestId, inquiry.TestName).setVisible(true);
+        new CreateInquiryFrame(client, inquiry.getId(), inquiry.getName()).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new UshowInquiryFrame(client, inquiry.TestId, inquiry.TestName).setVisible(true);
+        new UshowInquiryFrame(client, inquiry.getId(), inquiry.getName()).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
