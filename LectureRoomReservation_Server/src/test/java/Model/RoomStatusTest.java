@@ -45,7 +45,7 @@ public class RoomStatusTest {
     @Test
     public void testPrintRoomStatus() throws IOException {
         System.out.println("printRoomStatus");
-        String roomID = "301호"; // 실제 존재하는 시트명 사용
+        String roomID = "911"; // 실제 존재하는 시트명 사용
         RoomStatus instance = new RoomStatus();
         //  예외 없이 실행되는지 확인
         assertDoesNotThrow(() -> instance.printRoomStatus(roomID));
@@ -57,7 +57,7 @@ public class RoomStatusTest {
     @Test
     public void testGetReservationList() throws IOException {
         System.out.println("getReservationList");
-        String roomID = "301호";
+        String roomID = "911";
         String date = "2025-05-31";
         RoomStatus instance = new RoomStatus();
         String result = instance.getReservationList(roomID, date);
@@ -93,7 +93,7 @@ public class RoomStatusTest {
     @Test
     public void testGetReservationsByRoom() throws IOException {
         System.out.println("getReservationsByRoom");
-        String roomID = "301호";
+        String roomID = "911";
         RoomStatus instance = new RoomStatus();
         List<String> result = instance.getReservationsByRoom(roomID);
         assertNotNull(result);
