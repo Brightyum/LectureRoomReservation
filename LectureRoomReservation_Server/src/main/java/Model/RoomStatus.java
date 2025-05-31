@@ -115,21 +115,16 @@ public class RoomStatus extends Excel {
     // 특정 강의실, 특정 날짜에 해당하는 예약 목록 문자열로 반환
     public String getReservationList(String roomID, String date) {
         StringBuilder result = new StringBuilder();
-
         XSSFSheet sheet = workbook.getSheet(roomID);
         if (sheet == null) {
             return "없는 강의실";
         }
-
         int rows = sheet.getPhysicalNumberOfRows();
-
         boolean found = false;
-
         // 해당 날짜의 예약 정보만 필터링
         for (int i = 1; i < rows; i++) {
             XSSFRow row = sheet.getRow(i);
             if (row == null) continue;
-
             String rowDate = getCellValue(row.getCell(4));
             if (rowDate.equals(date)) {
                 String seat = getCellValue(row.getCell(1)); // 좌석 번호
@@ -141,11 +136,9 @@ public class RoomStatus extends Excel {
                 found = true;
             }
         }
-
         if (!found) {
             return "해당 날짜에 예약 없음";
         }
-
         return result.toString();
     }
 
@@ -170,7 +163,6 @@ public class RoomStatus extends Excel {
             if (sheet == null) {
                 return reservations;
             }
-
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) {
                     continue;
@@ -182,7 +174,6 @@ public class RoomStatus extends Excel {
                         sj.add("");
                         continue;
                     }
-
                     if (cell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(cell)) {
                         double excelValue = cell.getNumericCellValue();
                         if (excelValue < 1.0) { 
