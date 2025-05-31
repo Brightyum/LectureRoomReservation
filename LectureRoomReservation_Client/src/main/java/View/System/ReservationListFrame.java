@@ -44,11 +44,8 @@ public class ReservationListFrame extends javax.swing.JFrame {
             reservationList.setText("서버 통신 오류: " + e.getMessage());
         }
 
-        select.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
+        select.addActionListener((ActionEvent e) -> {
+            dispose();
         });
     }
 
@@ -143,7 +140,7 @@ public class ReservationListFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActionPerformed
-        // TODO add your handling code here:
+        // TODO 확인 버튼
     }//GEN-LAST:event_selectActionPerformed
 
     /**

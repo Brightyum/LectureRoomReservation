@@ -12,21 +12,35 @@ import View.Login.SignUpView;
  * @author user
  */
 public class LoginServerResponse {
+
     private LoginView loginView;
     private SignUpView signUpView;
     private final int idx = 0;
     private final int data = 1;
-    
+
     public LoginServerResponse(LoginView view) {
         this.loginView = view;
     }
-    
+
     public void judgeCommand(String input) {
+        if (input.startsWith("check_login:success:")) {
+            String[] parts = input.split(":", 4);
+            if (parts.length == 4) {
+                System.out.println("[클라이언트] 응답 파싱 성공!");
+                String name = parts[2].trim();
+                String id = parts[3].trim();
+                System.out.println("[클라이언트] 이름: " + name); 
+                System.out.println("[클라이언트] 아이디: " + id);
+                Model.LoginInfo.setUser(id, name);
+                this.loginView.checkLogin(true);
+                return; 
+            }
+        }
         String[] parts = input.split(":", 2);
-        
+
         String command = parts[idx].trim();
         String content = parts[data].trim();
-        
+
         switch (command) {
             case "check_login":
                 switch (content) {
@@ -50,7 +64,7 @@ public class LoginServerResponse {
                 }
         }
     }
-    
+
     public void setSignUpView(SignUpView signUpView) {
         this.signUpView = signUpView;
     }

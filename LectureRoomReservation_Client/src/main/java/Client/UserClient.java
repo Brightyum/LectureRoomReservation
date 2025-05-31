@@ -56,7 +56,7 @@ public class UserClient implements MessageSender {
                 close();
             } else {
                 out.println("ROLE=USER");
-                listenFromServer();
+                //listenFromServer();
                 javax.swing.SwingUtilities.invokeLater(() -> {
                     new UserFrame(this).setVisible(true);
                 });
@@ -117,7 +117,7 @@ public class UserClient implements MessageSender {
     public void sendMessage(String msg) {
         out.println(msg);
     }
-    
+    /*
     public void listenFromServer() {
         new Thread(() -> {
             try {
@@ -131,7 +131,7 @@ public class UserClient implements MessageSender {
             }
         }).start();
     }
-
+    */
     // 서버에서 받은 메시지 처리 로직
     private void handleServerMessage(String response) {
         String[] parts = response.split("\\|");

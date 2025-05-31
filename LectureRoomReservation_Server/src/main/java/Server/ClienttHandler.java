@@ -4,12 +4,18 @@
  */
 package Server;
 
+import Controller.login.Login;
 import Server.Login.LoginMessageRouter;
 import Server.Admin.AdminMessageRouter;
 import Server.User.UserMessageRouter;
 import Server.Professor.ProfessorMessageRouter;
+import Server.System.ComMessageRouter;
+import Server.System.ReservationListMessageRouter;
+import Model.BrokenComputer;
 import java.io.*;
 import java.net.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -60,20 +66,24 @@ public class ClienttHandler implements Runnable {
                 LoginMessageRouter loginRouter = new LoginMessageRouter();
                 System.out.println("로그인 라우터");
                 String input;
-                
+
                 while ((input = in.readLine()) != null) {
+                    if (handleSystemCommand(input, out)) {
+                        continue;
+                    }
                     String response = loginRouter.judgeCommand(input);
                     if (response != null) {
                         out.println(response);
                     }
                 }
-            }
-            
-            if (roleLine.startsWith("ROLE=PROFESSOR")) {
+            } else if (roleLine.startsWith("ROLE=PROFESSOR")) {
                 ProfessorMessageRouter professorRouter = new ProfessorMessageRouter();
                 System.out.println("교수 라우터");
                 String input;
                 while ((input = in.readLine()) != null) {
+                    if (handleSystemCommand(input, out)) {
+                        continue;
+                    }
                     String response = professorRouter.judgeCommand(input, out);
                     if (response != null) {
                         out.println(response);
@@ -84,6 +94,9 @@ public class ClienttHandler implements Runnable {
                 System.out.println("관리자 라우터");
                 String input;
                 while ((input = in.readLine()) != null) {
+                    if (handleSystemCommand(input, out)) {
+                        continue;
+                    }
                     String response = adminRouter.judgeCommand(input);
                     if (response != null) {
                         out.println(response);
@@ -94,7 +107,10 @@ public class ClienttHandler implements Runnable {
                 System.out.println("사용자 라우터");
                 String input;
                 while ((input = in.readLine()) != null) {
-                    String response = userRouter.judgeCommand(input,out);
+                    if (handleSystemCommand(input, out)) {
+                        continue;
+                    }
+                    String response = userRouter.judgeCommand(input, out);
                     if (response != null) {
                         out.println(response);
                     }
@@ -117,5 +133,75 @@ public class ClienttHandler implements Runnable {
                 System.out.println("현재 접속자 수: " + userCount.get());
             }
         }
+    }
+
+    private boolean handleSystemCommand(String input, PrintWriter out) {
+        System.out.println("[handleSystemCommand] input: " + input);
+
+        if (input == null || input.trim().isEmpty()) {
+            return false;
+        }
+
+        try {
+            if (input.startsWith("check_login:")) {
+                String[] parts = input.split(":", 2)[1].split(",");
+                String id = parts[0];
+                String pwd = parts[1];
+
+                Login login = new Login(); 
+                List<String> credentials = Arrays.asList(id, pwd);
+                boolean loginSuccess = login.checkUserLogin(credentials); 
+
+                if (loginSuccess) {
+                    List<String> userIds = login.getUserId();
+                    int idx = -1;
+                    for (int i = 0; i < userIds.size(); i++) {
+                        if (id.equals(userIds.get(i))) {
+                            idx = i;
+                            break;
+                        }
+                    }
+                    List<List<String>> userInfo = login.getUserInfo();
+                    String name = userInfo.get(idx).get(0); 
+                    out.println("check_login:success:" + name + ":" + id);
+                } else {
+                    out.println("check_login:fail");
+                }
+                return true;
+            }
+
+            if (input.startsWith("GET_BROKEN_LIST")) {
+                BrokenComputer brokenComputer = new BrokenComputer();
+                ComMessageRouter comRouter = new ComMessageRouter(brokenComputer);
+                String response = comRouter.handleMessage(input);
+                System.out.println("[GET_BROKEN_LIST] response: " + response);
+                out.println(response);
+                return true;
+            } else if (input.startsWith("GET_RESERVATION_LIST")) {
+                // 메시지 포맷 점검
+                String[] parts = input.split("\\|");
+                if (parts.length < 3) {
+                    out.println("ERROR|Invalid command format for GET_RESERVATION_LIST");
+                    System.out.println("[GET_RESERVATION_LIST] invalid format: " + input);
+                    return true;
+                }
+
+                ReservationListMessageRouter listRouter = new ReservationListMessageRouter();
+                String response = listRouter.routeMessage(input);
+                System.out.println("[GET_RESERVATION_LIST] response: " + response);
+                out.println(response);
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            out.println("ERROR|Internal server error");
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.println("ERROR|Unexpected server error");
+            return true;
+        }
+
+        return false;
     }
 }

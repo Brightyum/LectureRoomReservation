@@ -50,7 +50,7 @@ public class professorClient implements MessageSender {
                 close();
             } else {
                 out.println("ROLE=PROFESSOR");
-                listenFromServer();
+                //listenFromServer();
                 javax.swing.SwingUtilities.invokeLater(() -> {
                     new ProfessorFrame(this).setVisible(true);
                 });
@@ -213,6 +213,7 @@ public class professorClient implements MessageSender {
         return data;
     }
     
+    /*
     public void listenFromServer() {
         new Thread(() -> {
             try {
@@ -226,6 +227,7 @@ public class professorClient implements MessageSender {
             }
         }).start();
     }
+    */
     
     private void handleServerMessage(String response) {
         String[] parts = response.split("\\|");

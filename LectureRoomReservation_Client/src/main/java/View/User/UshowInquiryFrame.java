@@ -14,7 +14,7 @@ import Model.Inquiry;
 
 /**
  * 사용자 자신이 작성한 문의사항을 볼 수 있는 프레임 입니다.
- * 
+ *
  * @author leeseungmin
  */
 public class UshowInquiryFrame extends javax.swing.JFrame {
@@ -25,7 +25,7 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
     private DefaultListModel<String> processedModel;    // 처리된 문의 목록을 표시하는 리스트
     private List<Inquiry> processedInquiriesList = new ArrayList<>();   // 처리된 문의 객체 리스트
     private List<Inquiry> unprocessedInquiriesList = new ArrayList<>(); // 미처리 문의 객체 리스트
-    private UserClient client; // 서버와 통신하는 클라이언트 객체 TODO : 나중에 유저 객체로 바꿔야함
+    private UserClient client; // 서버와 통신하는 클라이언트 객체 
 
     public UshowInquiryFrame(UserClient client, String userId, String userName) {
         this.client = client;
@@ -36,19 +36,28 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
         initComponents();
         loadInquiries();
     }
-    
+
     /**
-     * 서버에서 전체 문의 내역을 받아와 현재 사용자의 문의만 골라 ischecked 값에 따라 미처리,처리로 구분하여 Jlist에 출력합니다.
+     * 서버에서 현재 사용자(userId)로 문의를 불러옵니다
      */
     private void loadInquiries() {
+        List<Inquiry> allInquiries = client.requestInquiryListFromServer(userId);
+        refreshLists(allInquiries); 
+    }
+    
+    /**
+     * ischecked 값에 따라 미처리,처리로 구분하여 Jlist에 출력합니다.
+     * 
+     * @param allInquiries 현재 사용자문의 
+     */
+    private void refreshLists(List<Inquiry> allInquiries) {
         processedModel.clear();
         unprocessedModel.clear();
         processedInquiriesList.clear();
         unprocessedInquiriesList.clear();
 
-        List<Inquiry> allInquiries = client.requestInquiryListFromServer(userId);
         for (Inquiry inquiry : allInquiries) {
-            if (inquiry.getId().equals(userId)) {
+            if (inquiry.getId().equals(userId)) { 
                 String entry = inquiry.getName() + "(" + inquiry.getId() + ")";
                 if (inquiry.isChecked()) {
                     processedModel.addElement(entry);
@@ -62,15 +71,15 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
         jList1.setModel(unprocessedModel);
         jList2.setModel(processedModel);
     }
-    
+
     /**
      * Jlist에서 선택한 객체의 문의사항 정보를 Jtable에 출력하는 기능입니다.
-     * 
+     *
      * @param inquiry 문의사항 정보를 출력할 객체
      */
     private void showInquiryDetail(Inquiry inquiry) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); 
+        model.setRowCount(0);
         model.addRow(new Object[]{
             inquiry.getMessage(),
             inquiry.getTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
@@ -199,8 +208,8 @@ public class UshowInquiryFrame extends javax.swing.JFrame {
 
     /**
      * 화면이 열릴때 Jtable을 초기화하고 Jlist에 미처리 , 처리 문의를 연결하는 기능입니다.
-     * 
-     * @param evt 
+     *
+     * @param evt
      */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

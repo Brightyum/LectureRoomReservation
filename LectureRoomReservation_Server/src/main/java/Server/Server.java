@@ -37,7 +37,6 @@ public class Server {
 
                 handler = new ClienttHandler(this.clientSocket);
                 new Thread(handler).start();
-
             } catch (IOException ex) {
                 Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("사용자의 연결을 다시 점검하세요.");

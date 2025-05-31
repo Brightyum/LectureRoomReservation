@@ -12,6 +12,7 @@ import Client.Login;
 import Client.Client;
 import Client.UserClient;
 import Client.professorClient;
+import Model.LoginInfo;
 import View.Admin.AdminView;
 import View.Login.SignUpView;
 
@@ -111,7 +112,7 @@ public class LoginView extends JFrame {
         if (result) {
             this.loginResult = true;
             JOptionPane.showMessageDialog(this, "로그인 성공");
-            client.sendMessage("check_login_role:" + id + "," + pwd);
+            client.sendMessage("check_login_role:" + id + "," + pwd);    
         } else {
             this.loginResult = false;
             JOptionPane.showMessageDialog(this, "로그인 실패");

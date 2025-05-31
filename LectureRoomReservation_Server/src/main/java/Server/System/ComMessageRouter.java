@@ -23,12 +23,11 @@ public class ComMessageRouter {
             return "ERROR|Empty message";
         }
 
-        String[] parts = message.split("\\|");
-        String command = parts[0];
+        String command = message.trim();
 
         if (command.equals("GET_BROKEN_LIST")) {
             List<String> brokenList = brokenComputer.getBrokenComputerList();
-            if (brokenList.isEmpty()) {
+            if (brokenList == null || brokenList.isEmpty()) {
                 return "EMPTY|No broken computers";
             } else {
                 return "SUCCESS|" + String.join(",", brokenList);

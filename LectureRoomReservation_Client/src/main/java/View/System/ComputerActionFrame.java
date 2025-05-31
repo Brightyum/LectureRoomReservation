@@ -6,6 +6,7 @@ package View.System;
 
 import java.awt.event.ActionEvent;
 import Client.ComClient;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /**
@@ -20,11 +21,8 @@ public class ComputerActionFrame extends javax.swing.JFrame {
     public ComputerActionFrame() {
         initComponents();
         
-        select.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // 확인 버튼으로 창 닫기
-            }
+        select.addActionListener((ActionEvent e) -> {
+            dispose();
         });
         
         try {

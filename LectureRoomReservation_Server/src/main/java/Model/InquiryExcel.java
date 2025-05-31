@@ -201,6 +201,13 @@ public class InquiryExcel {
      * @return 추가 성공시 true , 실패시 false
      */
     public boolean addInquiry(String name, String id, String message, String time, boolean isPriority) {
+
+        if (name == null || name.trim().isEmpty()
+                || id == null || id.trim().isEmpty()
+                || message == null || message.trim().isEmpty()
+                || time == null || time.trim().isEmpty()) {
+            return false;
+        }
         try (FileInputStream fis = new FileInputStream(EXCEL_FILE_PATH); Workbook workbook = new XSSFWorkbook(fis)) {
 
             Sheet sheet = workbook.getSheetAt(0);
@@ -225,25 +232,6 @@ public class InquiryExcel {
             e.printStackTrace();
             return false;
         }
-    }
-
-    /**
-     * inquiry 객체를 엑셀 파일에 추가하는 기능입니다.
-     *
-     * @param inquiry 추가할 inquiry 객체
-     * @return 추가 성공시 true , 실패시 false
-     */
-    public boolean addInquiry(Inquiry inquiry) {
-        if (inquiry == null) {
-            return false;
-        }
-        return addInquiry(
-                inquiry.getName(),
-                inquiry.getId(),
-                inquiry.getMessage(),
-                inquiry.getTime().toString(),
-                inquiry.isPriority()
-        );
     }
 
     /**

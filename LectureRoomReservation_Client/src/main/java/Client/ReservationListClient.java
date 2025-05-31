@@ -27,11 +27,6 @@ public class ReservationListClient {
         socket = new Socket("localhost", 10020);
         out = new PrintWriter(socket.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-        // 역할 알리기
-        out.println("ROLE=ADMIN");
-        String serverMessage = in.readLine();
-        System.out.println("[ReservationListMessageClient] 서버: " + serverMessage);
     }
 
     /**
