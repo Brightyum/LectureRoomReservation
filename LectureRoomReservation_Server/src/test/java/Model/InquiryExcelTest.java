@@ -146,14 +146,14 @@ public class InquiryExcelTest {
      * Test of getInquiriesByUserId method, of class InquiryExcel.
      */
     @Test
-    public void testGetInquiriesByUserId() { //실패
+    public void testGetInquiriesByUserId() { // 테스트완료
         System.out.println("getInquiriesByUserId");
-        inquiryExcel.addInquiry("이승민", "id1", "test", "2025-05-31T12:00:00", false);
+        inquiryExcel.addInquiry("이승민", "id1", "test", "2025-05-31T12:00", false);
 
         // 존재하는 아이디로 조회
-        List<Inquiry> hongList = inquiryExcel.getInquiriesByUserId("id1");
-        assertEquals(1, hongList.size());
-        assertEquals("이승민", hongList.get(0).getName());
+        List<Inquiry> LEEList = inquiryExcel.getInquiriesByUserId("id1");
+        assertEquals(1, LEEList.size());
+        assertEquals("이승민", LEEList.get(0).getName());
 
         // 없는 아이디로 조회
         List<Inquiry> noneList = inquiryExcel.getInquiriesByUserId("id0");
