@@ -29,13 +29,13 @@ public class Client {
             this.socket = new Socket("localhost", 10020);
             this.out = new PrintWriter(this.socket.getOutputStream(), true);
             this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-            
+            out.println("ROLE=ADMIN");
             String serverMessage = in.readLine();
             
             if (serverMessage != null && serverMessage.contains("접속하셨습니다.")) {
-                this.view = new AdminView(this);
+                //this.view = new AdminView(this);
                 this.listenFromServer();
-                this.sr= new ServerResponse(view);
+                this.sr= new ServerResponse();
 
             }  else if (serverMessage.contains("가득")) {
                 new ClientFullView();

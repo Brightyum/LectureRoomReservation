@@ -33,7 +33,7 @@ public class AdminView extends JFrame {
         this.client = client;
         this.userNames = new ArrayList<>();
         this.userIds = new ArrayList<>();
-
+        
         // 기본 프레임 세팅
         this.frame = new JFrame("관리자");
         this.frame.setSize(500, 500);
@@ -46,7 +46,7 @@ public class AdminView extends JFrame {
         userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(userList);
         scrollPane.setBorder(BorderFactory.createTitledBorder("사용자 목록"));
-
+        
         // 버튼 구성
         JButton exitButton = new JButton("종료하기");
         exitButton.addActionListener(e -> client.sendClose());

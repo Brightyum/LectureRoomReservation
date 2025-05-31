@@ -22,6 +22,9 @@ public class ServerResponse {
     private AdminAddUserView addView;
     private List<String> getDetail;
     
+    public ServerResponse() {
+        
+    }
     public ServerResponse(AdminView view) {
         this.view = view;
     }
@@ -125,5 +128,9 @@ public class ServerResponse {
     
     public void setAddView(AdminAddUserView addView) {
         this.addView = addView;
+    }
+    
+    public void setAdminView(AdminView view) {
+        this.view = view;
     }
 }
