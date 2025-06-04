@@ -92,6 +92,19 @@ public class UserManagementTest {
         assertNull(this.um.getUserDetail(id));
     }
     
+    //사용자 경고 주기 기능 테스트
+    @Test
+    public void testSetUserWarning() {
+        String id = this.stubExcel.getUserInfo().get(0).get(1);
+        int beforeWarning = Integer.parseInt(this.um.getUserDetail(id).get(4));
+        
+        this.um.setUserWarning(id);
+        
+        int result = Integer.parseInt(this.um.getUserDetail(id).get(4));
+        
+        assertEquals(beforeWarning + 1, result);
+    }
+    
     //사용자 정보 수정 기능 테스트
     @Test
     public void testSetUserInformation() {
@@ -110,18 +123,6 @@ public class UserManagementTest {
         
     }
     
-    //사용자 경고 주기 기능 테스트
-    @Test
-    public void testSetUserWarning() {
-        String id = this.stubExcel.getUserInfo().get(0).get(1);
-        int beforeWarning = Integer.parseInt(this.um.getUserDetail(id).get(4));
-        
-        this.um.setUserWarning(id);
-        
-        int result = Integer.parseInt(this.um.getUserDetail(id).get(4));
-        
-        assertEquals(beforeWarning + 1, result);
-    }
     
     //사용자 정보 보기 기능 테스트
     @Test
