@@ -11,6 +11,7 @@ import java.io.IOException;
  * @author user
  */
 public class StubExcel extends Excel {
+    
      private List<List<String>> dummyData;
 
     public StubExcel() throws IOException {
