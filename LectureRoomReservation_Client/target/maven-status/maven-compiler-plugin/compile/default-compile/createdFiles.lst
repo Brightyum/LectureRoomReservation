@@ -1,3 +1,4 @@
+Model\LoginInfo.class
 View\User\UserFrame$2.class
 View\Professor\ProfessorFrame$5.class
 View\System\ReservationListSelectFrame$2.class
@@ -30,6 +31,7 @@ View\System\ComputerActionFrame$1.class
 View\System\ReservationListFrame$1.class
 View\Admin\AdminDetailUserView.class
 Client\ComClient.class
+View\User\UserFrame$7.class
 View\Login\SignUpView.class
 View\User\UshowInquiryFrame$3.class
 Client\professorClient.class
